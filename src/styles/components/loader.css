@@ -1,27 +1,139 @@
-.loader {
+/* ============================================================
+   PRELOADER
+   Two-panel curtain with logo stagger + progress bar.
+   Palette: #0a0a0a bg, #ededed text, #c8ff00 lime accent.
+   ============================================================ */
+
+/* ── Preloader wrapper — sits above everything ── */
+.preloader {
   position: fixed;
   inset: 0;
   z-index: var(--z-loader);
-  background-color: var(--clr-bg);
+  pointer-events: all;      /* block interaction during load */
+  overflow: hidden;
+}
+
+/* ── Curtain panels ── */
+/* Both panels start at full height and wipe upward on exit.
+   Left exits with a slight delay offset for stagger feel. */
+.preloader__panel {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background-color: var(--clr-bg); /* #0a0a0a */
+  transform-origin: top center;
+  will-change: transform;
+}
+
+.preloader__panel--left  { left: 0; }
+.preloader__panel--right { right: 0; }
+
+/* ── Content — sits above panels, centred ── */
+.preloader__content {
+  position: absolute;
+  inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: var(--space-12);
+  z-index: 1; /* above panels */
 }
 
-.loader__inner {
-  text-align: center;
+/* ── Logo ── */
+.preloader__logo {
+  display: flex;
+  align-items: baseline;
+  gap: 0.02em;
+  overflow: hidden;           /* clip letters during slide-up reveal */
+  line-height: 1;
 }
 
-.loader__text {
+.preloader__logo-letter,
+.preloader__logo-dot {
+  display: inline-block;
   font-family: var(--ff-display);
-  font-size: var(--fs-4xl);
+  font-size: clamp(4rem, 12vw, 10rem);
   font-weight: var(--fw-black);
+  letter-spacing: var(--ls-tight);
+  text-transform: uppercase;
+  color: var(--clr-text);    /* #ededed */
+  line-height: 1;
+  /* Start below clip — GSAP reveals upward */
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+.preloader__logo-dot {
+  color: var(--clr-lime);    /* #c8ff00 accent */
+}
+
+/* ── Bottom bar ── */
+.preloader__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: min(480px, 80vw);
+  opacity: 0;               /* GSAP fades in */
+  will-change: opacity;
+}
+
+.preloader__label {
+  font-family: var(--ff-body);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
   letter-spacing: var(--ls-widest);
   text-transform: uppercase;
-  color: var(--clr-text);
+  color: var(--clr-text-subtle);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
-/* Footer */
+/* Progress track */
+.preloader__progress {
+  flex: 1;
+  height: 1px;
+  background-color: var(--clr-border);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Lime fill — GSAP drives scaleX from 0 → 1 */
+.preloader__progress-fill {
+  position: absolute;
+  inset: 0;
+  background-color: var(--clr-lime);
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+/* Counter */
+.preloader__counter {
+  font-family: var(--ff-display);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semi);
+  color: var(--clr-lime);
+  line-height: 1;
+  min-width: 2.5ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.preloader__counter-suffix {
+  font-family: var(--ff-display);
+  font-size: var(--fs-sm);
+  color: var(--clr-text-subtle);
+}
+
+/* ── Body scroll-lock state ── */
+/* Applied during load, removed by JS on complete */
+body.is-loading {
+  overflow: hidden;
+}
+
+/* ── Footer (moved from old loader.css) ── */
 .footer {
   padding-block: var(--space-8);
   border-top: 1px solid var(--clr-border);
@@ -33,5 +145,3 @@
   color: var(--clr-text-muted);
   text-align: center;
 }
-
-

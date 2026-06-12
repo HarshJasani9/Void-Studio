@@ -22,6 +22,10 @@
   --clr-secondary:    hsl(38, 92%, 60%);     /* #f59e0b */
   --clr-secondary-light: hsl(38, 92%, 72%);
 
+  /* Lime accent — high-contrast neon for preloader / UI highlights */
+  --clr-lime:         #c8ff00;
+  --clr-lime-dim:     hsl(75, 100%, 65%);
+
   /* Semantic */
   --clr-success:      hsl(142, 76%, 44%);
   --clr-warning:      hsl(38, 92%, 50%);

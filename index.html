@@ -22,10 +22,40 @@
   </head>
 
   <body>
-    <!-- Loader -->
-    <div id="loader" class="loader" aria-hidden="true">
-      <div class="loader__inner">
-        <span class="loader__text">VOID</span>
+    <!-- ═══════════════════════════════════════════════
+         PRELOADER
+         Two-panel curtain exit — panels wipe up independently
+         so the hero is revealed in a split-screen wipe.
+    ════════════════════════════════════════════════════ -->
+    <div id="preloader" class="preloader" aria-hidden="true" aria-label="Loading">
+
+      <!-- Left curtain panel -->
+      <div class="preloader__panel preloader__panel--left"></div>
+      <!-- Right curtain panel -->
+      <div class="preloader__panel preloader__panel--right"></div>
+
+      <!-- Content — centred over both panels -->
+      <div class="preloader__content">
+
+        <!-- Logo reveal — each letter is a separate span for stagger -->
+        <div class="preloader__logo" id="preloader-logo" aria-label="VOID Studio">
+          <span class="preloader__logo-letter" data-char="V">V</span>
+          <span class="preloader__logo-letter" data-char="O">O</span>
+          <span class="preloader__logo-letter" data-char="I">I</span>
+          <span class="preloader__logo-letter" data-char="D">D</span>
+          <span class="preloader__logo-dot">.</span>
+        </div>
+
+        <!-- Bottom bar: counter left, progress right -->
+        <div class="preloader__bar">
+          <span class="preloader__label">Loading</span>
+          <div class="preloader__progress">
+            <div class="preloader__progress-fill" id="preloader-fill"></div>
+          </div>
+          <span class="preloader__counter" id="preloader-counter">0</span>
+          <span class="preloader__counter-suffix">%</span>
+        </div>
+
       </div>
     </div>
 
