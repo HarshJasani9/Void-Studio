@@ -1,0 +1,38 @@
+/* ============================================================
+   NOISE OVERLAY
+   Fixed full-viewport noise texture with mix-blend-mode: overlay.
+
+   Animation strategy (per gsap-performance skill):
+   - We DO NOT animate background-position — that triggers paint every frame.
+   - Instead we make the tile large enough (256 × 256) and animate the
+     element's TRANSFORM (translate X/Y) via GSAP — compositor-only, 0 paint.
+   - The element is oversized (110vw × 110vh) so edges never show during drift.
+   - prefers-reduced-motion: the GSAP animation is never started (see noise.js).
+   ============================================================ */
+
+.noise {
+  /* Full-viewport, fixed, top of z-stack */
+  position: fixed;
+  inset: -5%; /* 5% bleed on all sides to hide edge during translate drift */
+  width: 110%;
+  height: 110%;
+  z-index: var(--z-loader, 1000); /* Just below loader, above everything else */
+
+  /* Pointer / selection passthrough */
+  pointer-events: none;
+  user-select: none;
+
+  /* Noise tile — PNG asset for crisp grain at all DPRs */
+  background-image: url('/src/assets/images/noise.png');
+  background-repeat: repeat;
+  background-size: 256px 256px;
+
+  /* Blend with content below */
+  mix-blend-mode: overlay;
+
+  /* Baseline opacity — GSAP will not touch this */
+  opacity: 0.04;
+
+  /* Compositor hint — GSAP animates transform on this element */
+  will-change: transform;
+}
