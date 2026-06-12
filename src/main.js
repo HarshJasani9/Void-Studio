@@ -34,7 +34,7 @@ async function init() {
   initHeader();
   initHero();
   initAbout();
-  initWork();
+  initWork(lenis);
   initMarquee();
   initRevealAnimations();
 }

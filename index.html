@@ -265,6 +265,48 @@
           <p class="footer__copy">&copy; 2026 VOID Studio. All rights reserved.</p>
         </div>
       </footer>
+
+      <!-- Project Detail Overlay -->
+      <div id="project-detail" class="project-detail" aria-hidden="true">
+        <!-- The clicked preview image will be dynamically appended here via FLIP -->
+        <div class="project-detail__img-container" id="detail-img-container"></div>
+        
+        <div class="project-detail__overlay"></div>
+
+        <button class="project-detail__close" id="detail-close" aria-label="Close Project">
+          <span>Close</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="project-detail__content container">
+          <div class="grid">
+            <div class="project-detail__header">
+              <h2 class="project-detail__title" id="detail-title">Project Title</h2>
+              <p class="project-detail__category" id="detail-category">Branding / Web</p>
+            </div>
+            
+            <div class="project-detail__body">
+              <div class="project-detail__meta-grid">
+                <div class="project-detail__meta">
+                  <span class="project-detail__label">Services</span>
+                  <span class="project-detail__val" id="detail-services">Strategy, Design, Dev</span>
+                </div>
+                <div class="project-detail__meta">
+                  <span class="project-detail__label">Year</span>
+                  <span class="project-detail__val">2026</span>
+                </div>
+              </div>
+              
+              <p class="project-detail__desc" id="detail-desc">
+                An immersive digital experience pushing the boundaries of branding, development, and motion. Built with uncompromising attention to detail, high-performance interactions, and fluid typographic transitions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Entry point -->
