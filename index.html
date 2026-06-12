@@ -85,23 +85,50 @@
         </nav>
       </header>
 
-      <!-- Hero -->
-      <section id="hero" class="hero">
-        <div class="container grid">
-          <div class="hero__content">
-            <p class="hero__label">Digital Design Studio</p>
-            <h1 class="hero__title" id="hero-title">
-              We craft <em>digital</em><br />experiences that <em>matter</em>
-            </h1>
-            <p class="hero__subtitle">
-              Strategy · Design · Development · Motion
-            </p>
-          </div>
-          <div class="hero__scroll" id="hero-scroll">
-            <span>Scroll</span>
-            <div class="hero__scroll-line"></div>
-          </div>
+      <!-- ═══════════════════════════════════════════════
+           HERO
+           SplitText chars are injected by JS — the h1 text
+           is set here as plain text for SSR/no-JS fallback.
+      ════════════════════════════════════════════════════ -->
+      <section id="hero" class="hero" aria-label="Hero">
+        <div class="hero__inner container">
+
+          <!-- Eyebrow label -->
+          <p class="hero__eyebrow" id="hero-eyebrow" aria-hidden="true">
+            <span class="hero__eyebrow-line"></span>
+            Digital Design Studio
+          </p>
+
+          <!-- Main headline — SplitText targets this -->
+          <h1 class="hero__headline" id="hero-headline">
+            <span class="hero__word" aria-hidden="true">VOID</span>
+            <span class="hero__word hero__word--accent" aria-hidden="true">STUDIO</span>
+            <!-- Screen-reader label on the h1 itself -->
+          </h1>
+          <!-- Accessible label for screen readers since chars get aria-hidden -->
+          <span class="sr-only">VOID STUDIO</span>
+
+          <!-- Descriptor -->
+          <p class="hero__descriptor" id="hero-descriptor">
+            <span>Strategy</span>
+            <span class="hero__sep">—</span>
+            <span>Design</span>
+            <span class="hero__sep">—</span>
+            <span>Development</span>
+            <span class="hero__sep">—</span>
+            <span>Motion</span>
+          </p>
+
         </div>
+
+        <!-- Scroll cue — bottom-left, absolutely positioned -->
+        <div class="hero__scroll-cue" id="hero-scroll-cue" aria-hidden="true">
+          <div class="hero__scroll-cue-track">
+            <div class="hero__scroll-cue-thumb"></div>
+          </div>
+          <span class="hero__scroll-cue-label">Scroll</span>
+        </div>
+
       </section>
 
       <!-- Marquee -->

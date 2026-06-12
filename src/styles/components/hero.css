@@ -1,65 +1,166 @@
+/* ============================================================
+   HERO
+   Oversized split-text headline (10–15vw), eyebrow, descriptor,
+   scroll-cue indicator.
+
+   SplitText note (gsap-plugins skill):
+   - font-kerning: none + text-rendering: optimizeSpeed on the
+     headline prevent kerning shift when chars are wrapped in spans
+   - overflow: clip is applied via SplitText mask option — no
+     manual overflow: hidden wrapper needed
+   ============================================================ */
+
 .hero {
+  position: relative;
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
   align-items: center;
-  padding-top: var(--space-16);
+  overflow: hidden;
+}
+
+/* ── Inner container — no grid needed; headline is full-bleed ── */
+.hero__inner {
+  padding-top: var(--space-16);  /* clear fixed header */
+  padding-bottom: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ── Eyebrow ── */
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-family: var(--ff-body);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+  overflow: hidden;             /* clips the slide-in reveal */
+}
+
+.hero__eyebrow-line {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background-color: var(--clr-lime);
+  flex-shrink: 0;
+  transform-origin: left center;
+  /* Initial state; GSAP scales from 0 */
+  transform: scaleX(0);
+}
+
+/* ── Headline ── */
+.hero__headline {
+  display: block;
+  font-family: var(--ff-display);
+  font-weight: var(--fw-black);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+
+  /* Prevent kerning shift during SplitText char wrapping */
+  font-kerning: none;
+  text-rendering: optimizeSpeed;
+
+  /* Large viewport font — 10–15vw clamped to reasonable min/max */
+  font-size: clamp(5rem, 13vw, 14rem);
+}
+
+.hero__word {
+  display: block;
+  color: var(--clr-text);
+  overflow: hidden; /* backup clip — SplitText mask handles per-char */
+}
+
+.hero__word--accent {
+  /* Second word in lime */
+  color: var(--clr-lime);
+  -webkit-text-stroke: 0px;
+}
+
+/* Chars injected by SplitText — set to inline-block for transforms */
+.hero__headline .char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* ── Descriptor ── */
+.hero__descriptor {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  font-family: var(--ff-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+  overflow: hidden;
+}
+
+.hero__sep {
+  color: var(--clr-lime);
+  opacity: 0.6;
+}
+
+/* ── Scroll cue — bottom-left corner ── */
+.hero__scroll-cue {
+  position: absolute;
+  bottom: var(--space-8);
+  left: var(--container-pad);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  /* Start hidden; GSAP fades in */
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.hero__scroll-cue-label {
+  font-family: var(--ff-body);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
+  color: var(--clr-text-subtle);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
+/* Scroll track — thin vertical line with a sliding thumb */
+.hero__scroll-cue-track {
+  width: 1px;
+  height: 64px;
+  background-color: var(--clr-border);
   position: relative;
   overflow: hidden;
 }
 
-.hero__content {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-}
-
-.hero__label {
-  font-family: var(--ff-body);
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--ls-widest);
-  text-transform: uppercase;
-  color: var(--clr-accent-light);
-}
-
-.hero__title {
-  font-size: var(--fs-hero);
-  font-weight: var(--fw-black);
-  line-height: var(--lh-tight);
-  letter-spacing: var(--ls-tight);
-  text-transform: uppercase;
-}
-
-.hero__subtitle {
-  font-size: var(--fs-md);
-  color: var(--clr-text-muted);
-  letter-spacing: var(--ls-wider);
-}
-
-.hero__scroll {
+.hero__scroll-cue-thumb {
   position: absolute;
-  bottom: var(--space-8);
-  right: var(--container-pad);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--fs-xs);
-  text-transform: uppercase;
-  letter-spacing: var(--ls-widest);
-  color: var(--clr-text-muted);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background-color: var(--clr-lime);
+  will-change: transform;
+  /* GSAP drives the animation — see hero.js */
 }
 
-.hero__scroll-line {
-  width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, var(--clr-accent), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
-}
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .hero__headline {
+    font-size: clamp(3.5rem, 18vw, 6rem);
+    line-height: 0.95;
+  }
 
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
-  50%      { opacity: 1;   transform: scaleY(1); }
+  .hero__scroll-cue {
+    bottom: var(--space-6);
+  }
 }
