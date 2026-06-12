@@ -9,9 +9,10 @@ import './styles/main.css';
 import 'lenis/dist/lenis.css';
 
 /* Modules */
-import { initSmoothScroll } from './js/smooth-scroll.js';
+import { initLenis } from './js/lenis-setup.js';
 import { initLoader } from './js/loader.js';
 import { initCursor } from './js/cursor.js';
+import { initNoise }  from './js/noise.js';
 import { initHeader } from './js/header.js';
 import {
   initHeroAnimations,
@@ -22,7 +23,7 @@ import {
 /* -------- Boot -------- */
 function init() {
   // 1. Smooth scroll (Lenis + GSAP sync)
-  const lenis = initSmoothScroll();
+  const lenis = initLenis();
 
   // 2. Intro loader animation
   initLoader();
@@ -30,10 +31,13 @@ function init() {
   // 3. Custom cursor
   initCursor();
 
-  // 4. Header scroll state
+  // 4. Noise overlay drift
+  initNoise();
+
+  // 5. Header scroll state
   initHeader();
 
-  // 5. Animations
+  // 6. Animations
   initHeroAnimations();
   initMarquee();
   initRevealAnimations();
