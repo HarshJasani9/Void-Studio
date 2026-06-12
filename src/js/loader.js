@@ -69,19 +69,11 @@ export function initLoader(lenis) {
     // ── Label: "enter" ────────────────────────────────────────────────────
     tl.addLabel('enter', 0);
 
-    // Logo letters stagger up from beneath clip
-    tl.to(letters, {
-      y: 0,
-      duration: 1,
-      stagger: { each: 0.08, ease: 'power2.out' },
-      ease: 'power4.out',
-    }, 'enter');
-
-    // Bar fades in as letters finish revealing
+    // Bar fades in immediately at start
     tl.to(bar, {
       autoAlpha: 1,
       duration: 0.5,
-    }, 'enter+=0.4');
+    }, 'enter');
 
     // Progress counter 0 → 100 driven by onUpdate on the progress tween
     tl.to(progress, {

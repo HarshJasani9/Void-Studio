@@ -60,8 +60,8 @@
   text-transform: uppercase;
   color: var(--clr-text);    /* #ededed */
   line-height: 1;
-  /* Start below clip — GSAP reveals upward */
-  transform: translateY(110%);
+  /* Logo is visible immediately, entrance animation removed */
+  transform: translateY(0);
   will-change: transform;
 }
 
