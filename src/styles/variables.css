@@ -1,0 +1,113 @@
+/* ============================================================
+   DESIGN TOKENS — Color palette, typography, spacing, motion
+   ============================================================ */
+
+:root {
+  /* -------- Colors: Dark theme (default) -------- */
+  --clr-bg:           hsl(0, 0%, 4%);        /* #0a0a0a */
+  --clr-bg-elevated:  hsl(0, 0%, 7%);        /* #121212 */
+  --clr-surface:      hsl(0, 0%, 10%);       /* #1a1a1a */
+  --clr-border:       hsl(0, 0%, 16%);       /* #292929 */
+
+  --clr-text:         hsl(0, 0%, 93%);       /* #ededed */
+  --clr-text-muted:   hsl(0, 0%, 55%);       /* #8c8c8c */
+  --clr-text-subtle:  hsl(0, 0%, 35%);       /* #595959 */
+
+  /* Accent — vibrant violet / purple */
+  --clr-accent:       hsl(262, 83%, 64%);    /* #7c3aed */
+  --clr-accent-light: hsl(262, 83%, 74%);    /* #a78bfa */
+  --clr-accent-dark:  hsl(262, 83%, 50%);    /* #6d28d9 */
+
+  /* Secondary accent — warm amber */
+  --clr-secondary:    hsl(38, 92%, 60%);     /* #f59e0b */
+  --clr-secondary-light: hsl(38, 92%, 72%);
+
+  /* Semantic */
+  --clr-success:      hsl(142, 76%, 44%);
+  --clr-warning:      hsl(38, 92%, 50%);
+  --clr-error:        hsl(0, 84%, 60%);
+
+  /* -------- Typography -------- */
+  --ff-display: 'Outfit', system-ui, sans-serif;
+  --ff-body:    'Inter', system-ui, sans-serif;
+  --ff-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Modular scale (1.25 — Major Third) */
+  --fs-xs:    clamp(0.694rem, 0.66vi + 0.53rem, 0.8rem);
+  --fs-sm:    clamp(0.833rem, 0.79vi + 0.64rem, 1rem);
+  --fs-base:  clamp(1rem, 0.95vi + 0.77rem, 1.125rem);
+  --fs-md:    clamp(1.125rem, 1.07vi + 0.87rem, 1.25rem);
+  --fs-lg:    clamp(1.44rem, 1.37vi + 1.11rem, 1.953rem);
+  --fs-xl:    clamp(1.728rem, 1.65vi + 1.33rem, 2.441rem);
+  --fs-2xl:   clamp(2.074rem, 1.97vi + 1.6rem, 3.052rem);
+  --fs-3xl:   clamp(2.488rem, 2.37vi + 1.92rem, 3.815rem);
+  --fs-4xl:   clamp(2.986rem, 2.84vi + 2.3rem, 4.768rem);
+  --fs-hero:  clamp(3.583rem, 3.41vi + 2.76rem, 6.5rem);
+
+  /* Font weights */
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semi:     600;
+  --fw-bold:     700;
+  --fw-black:    900;
+
+  /* Line heights */
+  --lh-tight:    1.1;
+  --lh-snug:     1.25;
+  --lh-normal:   1.5;
+  --lh-relaxed:  1.75;
+
+  /* Letter spacing */
+  --ls-tight:    -0.03em;
+  --ls-normal:   0;
+  --ls-wide:     0.05em;
+  --ls-wider:    0.1em;
+  --ls-widest:   0.2em;
+
+  /* -------- Spacing (8px base) -------- */
+  --space-1:  0.25rem;   /* 4px */
+  --space-2:  0.5rem;    /* 8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.5rem;    /* 24px */
+  --space-6:  2rem;      /* 32px */
+  --space-8:  3rem;      /* 48px */
+  --space-10: 4rem;      /* 64px */
+  --space-12: 5rem;      /* 80px */
+  --space-16: 6rem;      /* 96px */
+  --space-20: 8rem;      /* 128px */
+  --space-24: 10rem;     /* 160px */
+
+  /* -------- Layout -------- */
+  --container-max:  1440px;
+  --container-pad:  clamp(1.25rem, 4vw, 3rem);
+  --grid-columns:   12;
+  --grid-gap:       clamp(1rem, 2vw, 1.5rem);
+
+  /* -------- Border radius -------- */
+  --radius-sm:   0.25rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.75rem;
+  --radius-xl:   1rem;
+  --radius-2xl:  1.5rem;
+  --radius-full: 9999px;
+
+  /* -------- Motion -------- */
+  --ease-out:       cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:    cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast:  200ms;
+  --duration-base:  400ms;
+  --duration-slow:  800ms;
+  --duration-slower: 1200ms;
+
+  /* -------- Z-index layers -------- */
+  --z-base:     1;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-cursor:   500;
+  --z-loader:   1000;
+}

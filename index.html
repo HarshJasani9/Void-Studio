@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
+    <title>VOID Studio — Digital Design & Creative Development</title>
+    <meta name="description" content="VOID Studio is a digital design and creative development studio crafting immersive web experiences, bold brands, and cutting-edge interfaces." />
+    <meta name="theme-color" content="#0a0a0a" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts — Inter + Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- Loader -->
+    <div id="loader" class="loader" aria-hidden="true">
+      <div class="loader__inner">
+        <span class="loader__text">VOID</span>
+      </div>
+    </div>
+
+    <!-- Cursor follower -->
+    <div id="cursor" class="cursor" aria-hidden="true">
+      <div class="cursor__dot"></div>
+      <div class="cursor__ring"></div>
+    </div>
+
+    <!-- Main wrapper -->
+    <div id="app" data-scroll-container>
+      <!-- Navigation -->
+      <header id="header" class="header">
+        <nav class="nav container grid">
+          <a href="/" class="nav__logo" id="nav-logo">VOID<span class="accent">.</span></a>
+          <ul class="nav__links" id="nav-links">
+            <li><a href="#work" class="nav__link">Work</a></li>
+            <li><a href="#about" class="nav__link">About</a></li>
+            <li><a href="#services" class="nav__link">Services</a></li>
+            <li><a href="#contact" class="nav__link nav__link--cta">Let's Talk</a></li>
+          </ul>
+          <button class="nav__burger" id="nav-burger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+          </button>
+        </nav>
+      </header>
+
+      <!-- Hero -->
+      <section id="hero" class="hero">
+        <div class="container grid">
+          <div class="hero__content">
+            <p class="hero__label">Digital Design Studio</p>
+            <h1 class="hero__title" id="hero-title">
+              We craft <em>digital</em><br />experiences that <em>matter</em>
+            </h1>
+            <p class="hero__subtitle">
+              Strategy · Design · Development · Motion
+            </p>
+          </div>
+          <div class="hero__scroll" id="hero-scroll">
+            <span>Scroll</span>
+            <div class="hero__scroll-line"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Marquee -->
+      <section class="marquee" aria-hidden="true">
+        <div class="marquee__track" id="marquee-track">
+          <span class="marquee__item">Branding</span>
+          <span class="marquee__separator">✦</span>
+          <span class="marquee__item">Web Design</span>
+          <span class="marquee__separator">✦</span>
+          <span class="marquee__item">Development</span>
+          <span class="marquee__separator">✦</span>
+          <span class="marquee__item">Motion</span>
+          <span class="marquee__separator">✦</span>
+          <span class="marquee__item">3D</span>
+          <span class="marquee__separator">✦</span>
+          <span class="marquee__item">Branding</span>
+          <span class="marquee__separator">✦</span>
+          <span class="marquee__item">Web Design</span>
+          <span class="marquee__separator">✦</span>
+          <span class="marquee__item">Development</span>
+          <span class="marquee__separator">✦</span>
+          <span class="marquee__item">Motion</span>
+          <span class="marquee__separator">✦</span>
+          <span class="marquee__item">3D</span>
+          <span class="marquee__separator">✦</span>
+        </div>
+      </section>
+
+      <!-- Main content placeholder sections (to be built out later) -->
+      <main id="main">
+        <section id="work" class="section">
+          <div class="container grid">
+            <h2 class="section__heading">Selected Work</h2>
+          </div>
+        </section>
+
+        <section id="about" class="section">
+          <div class="container grid">
+            <h2 class="section__heading">About</h2>
+          </div>
+        </section>
+
+        <section id="services" class="section">
+          <div class="container grid">
+            <h2 class="section__heading">Services</h2>
+          </div>
+        </section>
+
+        <section id="contact" class="section">
+          <div class="container grid">
+            <h2 class="section__heading">Get in Touch</h2>
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer id="footer" class="footer">
+        <div class="container grid">
+          <p class="footer__copy">&copy; 2026 VOID Studio. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Entry point -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
