@@ -14,6 +14,7 @@ import { initCursor }  from './js/cursor.js';
 import { initNoise }   from './js/noise.js';
 import { initHeader }  from './js/header.js';
 import { initHero }    from './js/hero.js';
+import { initAbout }   from './js/about.js';
 import { initMarquee, initRevealAnimations } from './js/animations.js';
 
 /* ── Boot ─────────────────────────────────────────────────────────────────── */
@@ -31,6 +32,7 @@ async function init() {
   // 4. Post-load modules — Lenis is running, ST positions are valid
   initHeader();
   initHero();
+  initAbout();
   initMarquee();
   initRevealAnimations();
 }

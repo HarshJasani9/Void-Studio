@@ -1,0 +1,107 @@
+/* ============================================================
+   ABOUT / MANIFESTO
+   Pinned scroll section with line-by-line blur reveal
+   and background parallax shapes.
+   ============================================================ */
+
+.about {
+  position: relative;
+  /* We don't set min-height: 100vh here, pinning handles the scroll duration,
+     but we do want it to take up the full screen when pinned. */
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--clr-bg-elevated);
+}
+
+.about__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.about__content {
+  grid-column: 2 / 12;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.about__eyebrow {
+  font-family: var(--ff-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
+  color: var(--clr-accent-light);
+  /* Indent slightly to align with the text block */
+  margin-left: 2ch;
+  position: relative;
+}
+
+.about__eyebrow::before {
+  content: '';
+  position: absolute;
+  left: -2ch;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.5ch;
+  height: 1px;
+  background-color: var(--clr-accent-light);
+}
+
+.about__manifesto {
+  font-family: var(--ff-display);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: var(--fw-semi);
+  line-height: var(--lh-snug);
+  color: var(--clr-text);
+  margin: 0;
+}
+
+/* SplitText lines */
+.about__manifesto .line {
+  display: block;
+  will-change: opacity, transform, filter;
+  transform-origin: left center;
+}
+
+/* ── Background Parallax Shapes ── */
+.about__shapes {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.about__shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  will-change: transform;
+}
+
+.about__shape--1 {
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, var(--clr-accent) 0%, transparent 70%);
+  top: -10%;
+  left: -10%;
+}
+
+.about__shape--2 {
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, var(--clr-lime) 0%, transparent 70%);
+  bottom: -20%;
+  right: -5%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about__content {
+    grid-column: 1 / -1;
+  }
+}
