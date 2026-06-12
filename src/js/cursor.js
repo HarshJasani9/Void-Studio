@@ -1,44 +1,77 @@
 /**
  * cursor.js
- * Custom cursor follower with magnetic hover effect
+ *
+ * Custom cursor: 8px dot (snaps, always white) + 40px ring (lags, mix-blend-mode: difference).
+ *
+ * Why two separate elements (not one wrapper)?
+ *   mix-blend-mode: difference on a wrapper affects ALL children including the dot.
+ *   On a near-black background: white - black ≈ white → invisible dot.
+ *   Solution: ring has the blend mode, dot does not — dot is always visibly white.
+ *
+ * gsap.quickTo() — per gsap-performance skill:
+ *   "Use quickTo() for frequently updated properties (e.g. mouse-follower x/y).
+ *    It reuses a single tween instead of creating new tweens on each update."
+ *   dot: duration 0  → immediate snap to pointer
+ *   ring: duration 0.5, power3.out → weighted, organic lag
+ *
+ * Skill reference: gsap-performance › gsap.quickTo()
  */
+
 import gsap from 'gsap';
 
 export function initCursor() {
-  const cursor = document.getElementById('cursor');
-  if (!cursor || window.matchMedia('(hover: none)').matches) return;
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  if (!dot || !ring) return;
 
-  const dot = cursor.querySelector('.cursor__dot');
-  const ring = cursor.querySelector('.cursor__ring');
+  // ── Touch / coarse-pointer guard ─────────────────────────────────────────
+  const isTouch =
+    window.matchMedia('(hover: none)').matches ||
+    window.matchMedia('(pointer: coarse)').matches;
+  if (isTouch) return;
 
-  // Track mouse position
-  let mouse = { x: 0, y: 0 };
+  // ── quickTo — one reusable function per property ─────────────────────────
+  const dotX  = gsap.quickTo(dot,  'x', { duration: 0,   ease: 'none' });
+  const dotY  = gsap.quickTo(dot,  'y', { duration: 0,   ease: 'none' });
+  const ringX = gsap.quickTo(ring, 'x', { duration: 0.5, ease: 'power3.out' });
+  const ringY = gsap.quickTo(ring, 'y', { duration: 0.5, ease: 'power3.out' });
 
+  // ── mousemove — update quickTo targets ───────────────────────────────────
   window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+    dotX(e.clientX);
+    dotY(e.clientY);
+    ringX(e.clientX);
+    ringY(e.clientY);
   });
 
-  // Animate cursor to follow mouse
-  gsap.ticker.add(() => {
-    gsap.set(dot, { x: mouse.x, y: mouse.y });
-    gsap.to(ring, {
-      x: mouse.x,
-      y: mouse.y,
-      duration: 0.15,
-      ease: 'power2.out',
-      overwrite: 'auto',
-    });
+  // ── Fade in on first move ─────────────────────────────────────────────────
+  window.addEventListener('mousemove', fadeIn, { once: true });
+  function fadeIn() {
+    gsap.to([dot, ring], { autoAlpha: 1, duration: 0.4, ease: 'power2.out', stagger: 0.05 });
+  }
+
+  // ── Hover states via event delegation ────────────────────────────────────
+  const INTERACTIVE = 'a, button, [data-cursor-hover], input, label, select';
+
+  document.addEventListener('mouseover', (e) => {
+    if (!e.target.closest(INTERACTIVE)) return;
+    gsap.to(ring, { scale: 2.5, opacity: 0.2, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+    gsap.to(dot,  { scale: 0,               duration: 0.2,  ease: 'power2.in',  overwrite: 'auto' });
   });
 
-  // Scale up on interactive elements
-  const interactiveEls = document.querySelectorAll('a, button, [data-cursor]');
-  interactiveEls.forEach((el) => {
-    el.addEventListener('mouseenter', () => {
-      gsap.to(ring, { scale: 2, opacity: 0.3, duration: 0.3, ease: 'power2.out' });
-    });
-    el.addEventListener('mouseleave', () => {
-      gsap.to(ring, { scale: 1, opacity: 0.5, duration: 0.3, ease: 'power2.out' });
-    });
+  document.addEventListener('mouseout', (e) => {
+    if (!e.target.closest(INTERACTIVE)) return;
+    gsap.to(ring, { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
+    gsap.to(dot,  { scale: 1,             duration: 0.3, ease: 'back.out(2)', overwrite: 'auto' });
+  });
+
+  // ── Click micro-interaction ───────────────────────────────────────────────
+  document.addEventListener('mousedown', () => {
+    gsap.to(ring, { scale: 0.75, duration: 0.1, ease: 'power3.in',  overwrite: 'auto' });
+    gsap.to(dot,  { scale: 1.8,  duration: 0.1, ease: 'power3.in',  overwrite: 'auto' });
+  });
+  document.addEventListener('mouseup', () => {
+    gsap.to(ring, { scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.4)', overwrite: 'auto' });
+    gsap.to(dot,  { scale: 1, duration: 0.3, ease: 'back.out(2)',          overwrite: 'auto' });
   });
 }

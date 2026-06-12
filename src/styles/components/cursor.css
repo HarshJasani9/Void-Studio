@@ -1,0 +1,60 @@
+/* ============================================================
+   CURSOR
+   Two independent fixed elements:
+   - .cursor__ring  — mix-blend-mode: difference  (inverts over content)
+   - .cursor__dot   — no blend mode, always accent-white  (always visible)
+
+   GSAP owns all transforms — no CSS transform: translate() on either element.
+   Centring is done with negative margin so GSAP x/y starts at (0,0).
+   ============================================================ */
+
+/* ── Shared base ── */
+.cursor__dot,
+.cursor__ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  user-select: none;
+  /* Start invisible — JS fades in on first mousemove */
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ── Dot — snaps to pointer, always visible white ── */
+.cursor__dot {
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  /* Centre on hotspot; GSAP translates from this offset */
+  margin-top: -4px;
+  margin-left: -4px;
+  /* Above ring */
+  z-index: calc(var(--z-cursor) + 1);
+  will-change: transform, opacity;
+}
+
+/* ── Ring — lags behind pointer, inverts over content ── */
+.cursor__ring {
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid #fff;
+  background-color: transparent;
+  /* Centre ring on hotspot */
+  margin-top: -20px;
+  margin-left: -20px;
+  z-index: var(--z-cursor);
+  /* Invert whatever colour is underneath */
+  mix-blend-mode: difference;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+/* ── Touch / coarse-pointer devices — hide both ── */
+@media (hover: none), (pointer: coarse) {
+  .cursor__dot,
+  .cursor__ring {
+    display: none !important;
+  }
+}
