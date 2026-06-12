@@ -181,15 +181,68 @@
 
       <!-- Main content placeholder sections (to be built out later) -->
       <main id="main">
-        <section id="work" class="section">
+        <!-- ═══════════════════════════════════════════════
+             WORK / PROJECTS GRID
+        ════════════════════════════════════════════════════ -->
+        <section id="work" class="work">
           <div class="container grid">
-            <h2 class="section__heading">Selected Work</h2>
+            <div class="work__header">
+              <h2 class="work__title" data-reveal>Selected Work</h2>
+            </div>
           </div>
-        </section>
 
-        <section id="about" class="section">
-          <div class="container grid">
-            <h2 class="section__heading">About</h2>
+          <div class="work__list">
+            <article class="work__item" data-project-id="1">
+              <div class="container work__item-inner">
+                <h3 class="work__item-title magnetic-wrap">
+                  <span class="magnetic-target">Lumen Studio</span>
+                </h3>
+                <span class="work__item-category">Branding / Web</span>
+              </div>
+            </article>
+            
+            <article class="work__item" data-project-id="2">
+              <div class="container work__item-inner">
+                <h3 class="work__item-title magnetic-wrap">
+                  <span class="magnetic-target">Aura Arch</span>
+                </h3>
+                <span class="work__item-category">Digital / Motion</span>
+              </div>
+            </article>
+
+            <article class="work__item" data-project-id="3">
+              <div class="container work__item-inner">
+                <h3 class="work__item-title magnetic-wrap">
+                  <span class="magnetic-target">Nova Type</span>
+                </h3>
+                <span class="work__item-category">Typography / Web</span>
+              </div>
+            </article>
+
+            <article class="work__item" data-project-id="4">
+              <div class="container work__item-inner">
+                <h3 class="work__item-title magnetic-wrap">
+                  <span class="magnetic-target">TechFlow</span>
+                </h3>
+                <span class="work__item-category">Product / App</span>
+              </div>
+            </article>
+          </div>
+
+          <!-- Cursor Following Preview Images -->
+          <div class="work__previews" id="work-previews" aria-hidden="true">
+            <div class="work__preview-img" data-project-img="1">
+              <img src="/src/assets/images/work/project-1.png" alt="" />
+            </div>
+            <div class="work__preview-img" data-project-img="2">
+              <img src="/src/assets/images/work/project-2.png" alt="" />
+            </div>
+            <div class="work__preview-img" data-project-img="3">
+              <img src="/src/assets/images/work/project-3.png" alt="" />
+            </div>
+            <div class="work__preview-img" data-project-img="4">
+              <img src="/src/assets/images/work/project-4.png" alt="" />
+            </div>
           </div>
         </section>
 

@@ -15,6 +15,7 @@ import { initNoise }   from './js/noise.js';
 import { initHeader }  from './js/header.js';
 import { initHero }    from './js/hero.js';
 import { initAbout }   from './js/about.js';
+import { initWork }    from './js/work.js';
 import { initMarquee, initRevealAnimations } from './js/animations.js';
 
 /* ── Boot ─────────────────────────────────────────────────────────────────── */
@@ -33,6 +34,7 @@ async function init() {
   initHeader();
   initHero();
   initAbout();
+  initWork();
   initMarquee();
   initRevealAnimations();
 }

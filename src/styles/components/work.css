@@ -1,0 +1,135 @@
+/* ============================================================
+   WORK / PROJECTS GRID
+   Full-screen rows, cursor-following image previews.
+   ============================================================ */
+
+.work {
+  padding: var(--space-20) 0;
+  position: relative;
+  background-color: var(--clr-bg);
+}
+
+.work__header {
+  margin-bottom: var(--space-12);
+}
+
+.work__title {
+  font-family: var(--ff-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-tight);
+}
+
+/* ── Project List ── */
+.work__list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--clr-border);
+}
+
+.work__item {
+  position: relative;
+  border-bottom: 1px solid var(--clr-border);
+  padding: var(--space-8) 0;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+}
+
+.work__item:hover {
+  background-color: var(--clr-bg-elevated);
+}
+
+.work__item-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* To ensure magnetic target doesn't overflow container */
+  position: relative;
+}
+
+.work__item-title {
+  font-family: var(--ff-display);
+  font-size: clamp(3rem, 8vw, 8rem);
+  font-weight: var(--fw-black);
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--clr-text);
+  /* The wrapper handles magnetic movement */
+  will-change: transform;
+}
+
+/* Magnetic wrap handles hover area, target is the moving text */
+.magnetic-wrap {
+  display: inline-block;
+}
+
+.magnetic-target {
+  display: inline-block;
+  pointer-events: none;
+  transition: color 0.4s ease;
+}
+
+.work__item:hover .magnetic-target {
+  color: var(--clr-lime);
+}
+
+.work__item-category {
+  font-family: var(--ff-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+
+/* ── Cursor Following Previews ── */
+.work__previews {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50; /* Above content, below cursor */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.work__preview-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 500px;
+  /* Center offset */
+  margin-top: -250px;
+  margin-left: -200px;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform, opacity;
+  /* Clip-path for distortion effect on hover */
+  clip-path: inset(100% 0% 0% 0%);
+}
+
+.work__preview-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.2); /* For scaling down on reveal */
+  will-change: transform;
+}
+
+@media (max-width: 768px) {
+  .work__previews {
+    display: none; /* Disable previews on mobile */
+  }
+  .work__item-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+}
