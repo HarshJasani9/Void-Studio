@@ -1,0 +1,144 @@
+/* ============================================================
+   TEAM / CULTURE SECTION
+   Asymmetric grid layout with high-contrast hover saturation boosts.
+   ============================================================ */
+
+.culture {
+  padding-block: var(--space-24);
+  background-color: var(--clr-bg-elevated); /* Slightly different dark base for section separation */
+  position: relative;
+  overflow: hidden;
+}
+
+.culture__heading {
+  margin-bottom: var(--space-12);
+}
+
+.culture__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--grid-gap);
+}
+
+.culture__card {
+  position: relative;
+  background-color: var(--clr-bg);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.culture__img-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.culture__card--wide .culture__img-wrapper {
+  aspect-ratio: 16 / 9;
+}
+
+.culture__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  filter: grayscale(40%); /* Base state when revealed */
+  transition: filter var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out);
+  will-change: filter, transform;
+}
+
+/* Hover Saturation Boost + Image Scale */
+.culture__card:hover .culture__img {
+  filter: grayscale(0%) saturate(1.4);
+  transform: scale(1.05);
+}
+
+.culture__card-content {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.culture__card-tag {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  color: var(--clr-lime);
+}
+
+.culture__card-title {
+  font-family: var(--ff-display);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  color: var(--clr-text);
+  line-height: var(--lh-tight);
+}
+
+/* Info Card (Asymmetric Counterpart) */
+.culture__info-card {
+  position: relative;
+  background-color: var(--clr-surface);
+  border: 1px dashed var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.culture__info-text {
+  font-family: var(--ff-display);
+  font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+  font-weight: var(--fw-medium);
+  color: var(--clr-text);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+}
+
+.culture__info-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--clr-border);
+  padding-top: var(--space-4);
+}
+
+.culture__info-stat {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-xs);
+  color: var(--clr-text-muted);
+}
+
+.culture__info-tag {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-xs);
+  color: var(--clr-lime);
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .culture__grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .culture__card--wide {
+    grid-column: span 8;
+  }
+
+  .culture__card:not(.culture__card--wide) {
+    grid-column: span 4;
+  }
+
+  .culture__info-card {
+    grid-column: span 8;
+    padding: var(--space-10);
+  }
+}
