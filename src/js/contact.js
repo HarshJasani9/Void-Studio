@@ -81,12 +81,10 @@ export function initContact() {
   // Stagger items
   const emailWrapper = document.querySelector('.contact__email-wrapper');
   const grid = document.querySelector('.contact__grid');
-  const bottom = document.querySelector('.contact__bottom');
 
   if (isReduced) {
     if (emailWrapper) gsap.set(emailWrapper, { y: 0, autoAlpha: 1 });
     if (grid) gsap.set(grid, { y: 0, autoAlpha: 1 });
-    if (bottom) gsap.set(bottom, { y: 0, autoAlpha: 1 });
     return; // Skip magnetic physics & animations
   }
 
@@ -138,16 +136,6 @@ export function initContact() {
       duration: 1.0,
       ease: hop,
     }, '-=0.7');
-  }
-
-  // Stagger bottom socials and credits
-  if (bottom) {
-    tl.from(bottom, {
-      y: 25,
-      autoAlpha: 0,
-      duration: 0.8,
-      ease: hop,
-    }, '-=0.6');
   }
 
   // 3. Magnetic Hover Physics
