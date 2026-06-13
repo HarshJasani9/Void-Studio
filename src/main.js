@@ -18,6 +18,7 @@ import { initAbout }   from './js/about.js';
 import { initWork }    from './js/work.js';
 import { initServices } from './js/services.js';
 import { initCulture } from './js/culture.js';
+import { initContact } from './js/contact.js';
 import { initMarquee, initRevealAnimations } from './js/animations.js';
 
 /* ── Boot ─────────────────────────────────────────────────────────────────── */
@@ -39,6 +40,7 @@ async function init() {
   initWork(lenis);
   initServices();
   initCulture();
+  initContact();
   initMarquee();
   initRevealAnimations();
 }
