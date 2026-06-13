@@ -27,5 +27,14 @@ export function initHeader() {
       links.classList.toggle('is-open');
       burger.classList.toggle('is-active');
     });
+
+    // Close mobile menu overlay upon link click
+    const navLinksList = links.querySelectorAll('.nav__link');
+    navLinksList.forEach((link) => {
+      link.addEventListener('click', () => {
+        links.classList.remove('is-open');
+        burger.classList.remove('is-active');
+      });
+    });
   }
 }
