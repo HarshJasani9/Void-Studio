@@ -253,10 +253,19 @@
 
         <section id="services" class="services" aria-label="Services">
           <div class="container">
-            <h2 class="services__heading section__heading" data-reveal>Services</h2>
+            <div class="services__header">
+              <h2 class="services__heading section__heading" data-reveal>Services</h2>
+              <!-- Dynamic index counter in the section corner -->
+              <div class="services__counter" id="services-counter" aria-hidden="true">
+                <span>(</span>
+                <span class="services__counter-current" id="services-counter-current">01</span>
+                <span class="services__counter-sep">/</span>
+                <span>04)</span>
+              </div>
+            </div>
             
             <div class="services__list">
-              <div class="services__item">
+              <div class="services__item" data-service-id="1">
                 <div class="services__item-inner">
                   <span class="services__item-index">01</span>
                   <h3 class="services__item-title">Branding & Identity</h3>
@@ -265,7 +274,7 @@
                 <div class="services__item-underline" aria-hidden="true"></div>
               </div>
 
-              <div class="services__item">
+              <div class="services__item" data-service-id="2">
                 <div class="services__item-inner">
                   <span class="services__item-index">02</span>
                   <h3 class="services__item-title">Web Design & UX</h3>
@@ -274,7 +283,7 @@
                 <div class="services__item-underline" aria-hidden="true"></div>
               </div>
 
-              <div class="services__item">
+              <div class="services__item" data-service-id="3">
                 <div class="services__item-inner">
                   <span class="services__item-index">03</span>
                   <h3 class="services__item-title">Creative Development</h3>
@@ -283,7 +292,7 @@
                 <div class="services__item-underline" aria-hidden="true"></div>
               </div>
 
-              <div class="services__item">
+              <div class="services__item" data-service-id="4">
                 <div class="services__item-inner">
                   <span class="services__item-index">04</span>
                   <h3 class="services__item-title">Motion & Interactive</h3>
@@ -291,6 +300,22 @@
                 </div>
                 <div class="services__item-underline" aria-hidden="true"></div>
               </div>
+            </div>
+          </div>
+
+          <!-- Cursor-following hover previews (similar to selected work) -->
+          <div class="services__previews" id="services-previews" aria-hidden="true">
+            <div class="services__preview-img" data-service-img="1">
+              <img src="/service-1.png" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="services__preview-img" data-service-img="2">
+              <img src="/service-2.png" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="services__preview-img" data-service-img="3">
+              <img src="/service-3.png" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="services__preview-img" data-service-img="4">
+              <img src="/service-4.png" alt="" loading="lazy" decoding="async" />
             </div>
           </div>
         </section>
