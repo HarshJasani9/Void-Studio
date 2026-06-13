@@ -33,7 +33,7 @@
   border-bottom: 1px solid var(--clr-border);
   padding: var(--space-8) 0;
   cursor: pointer;
-  transition: background-color 0.4s ease;
+  transition: background-color var(--duration-base) var(--ease-out);
 }
 
 @media (hover: hover) {
@@ -70,7 +70,7 @@
 .magnetic-target {
   display: inline-block;
   pointer-events: none;
-  transition: color 0.4s ease;
+  transition: color var(--duration-base) var(--ease-out);
 }
 
 @media (hover: hover) {

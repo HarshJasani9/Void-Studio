@@ -45,7 +45,7 @@ export function initContact() {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: contactSection,
-      start: 'top 75%',
+      start: 'top 85%',
       toggleActions: 'play none none none',
     },
   });

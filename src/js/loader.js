@@ -59,17 +59,34 @@ export function initLoader(lenis) {
     document.body.classList.add('is-loading');
     if (lenis) lenis.stop();
 
-    // ── Proxy object for the counter — GSAP tweens { val } ───────────────
+    // ── Preloader state tracking ──────────────────────────────────────────
+    let isLoaded = false;
+    const handleLoad = () => { isLoaded = true; };
+    window.addEventListener('load', handleLoad);
+    if (document.readyState === 'complete') {
+      isLoaded = true;
+    }
+
+    // ── Proxy object for the counter ───────────────────────────────────────
     const progress = { val: 0 };
 
-    // ── Master timeline ───────────────────────────────────────────────────
-    // defaults: shared ease/duration for all child tweens unless overridden
-    const tl = gsap.timeline({
+    // ── Intro Timeline (Bar fade-in) ───────────────────────────────────────
+    const introTl = gsap.timeline({
+      defaults: { ease: 'power3.out' }
+    });
+
+    introTl.to(bar, {
+      autoAlpha: 1,
+      duration: 0.5,
+    });
+
+    // ── Outro Timeline (Exit panels sweep) ──────────────────────────────────
+    const outroTl = gsap.timeline({
+      paused: true,
       defaults: { ease: 'power3.out' },
       onComplete: () => {
-        // Remove preloader from paint tree
+        window.removeEventListener('load', handleLoad);
         preloader.style.display = 'none';
-        // Unlock scroll
         document.body.classList.remove('is-loading');
         document.body.classList.add('is-loaded');
         if (lenis) lenis.start();
@@ -77,59 +94,71 @@ export function initLoader(lenis) {
       },
     });
 
-    // ── Label: "enter" ────────────────────────────────────────────────────
-    tl.addLabel('enter', 0);
-
-    // Bar fades in immediately at start
-    tl.to(bar, {
-      autoAlpha: 1,
-      duration: 0.5,
-    }, 'enter');
-
-    // Progress counter 0 → 100 driven by onUpdate on the progress tween
-    tl.to(progress, {
-      val: 100,
-      duration: 1.8,
-      ease: 'power1.inOut',
-      onUpdate() {
-        const v = Math.round(progress.val);
-        counter.textContent = v;
-        // Drive the fill bar scaleX in sync
-        gsap.set(fill, { scaleX: v / 100 });
-      },
-    }, 'enter+=0.4');
-
-    // ── Label: "exit" — 0.4s natural hold after counter reaches 100 ────────
-    tl.addLabel('exit', '+=0.4');
-
-    tl.to(bar, {
+    outroTl.to(bar, {
       autoAlpha: 0,
       y: -16,
       duration: 0.35,
-    }, 'exit');
+    }, 0);
 
-    tl.to(letters, {
+    outroTl.to(letters, {
       autoAlpha: 0,
       y: -20,
       duration: 0.4,
       stagger: { each: 0.04, from: 'end' },
-    }, 'exit+=0.05');
+    }, 0.05);
 
-    // Curtain panels wipe upward — left first, right 0.1s later
-    // yPercent: -100 moves each panel fully off the top of the viewport.
-    // Per gsap-timeline skill: use position parameter for stagger between
-    // two elements rather than two separate timelines.
-    tl.to(panelL, {
+    outroTl.to(panelL, {
       yPercent: -100,
       duration: 1.0,
       ease: 'power4.inOut',
-    }, 'exit+=0.3');
+    }, 0.3);
 
-    tl.to(panelR, {
+    outroTl.to(panelR, {
       yPercent: -100,
       duration: 1.0,
       ease: 'power4.inOut',
-    }, 'exit+=0.45'); // 0.15s stagger → right panel wipes slightly later
+    }, 0.45);
+
+    // ── Progress Loop (0 to 90 initial, then 90 to 100 on load) ────────────
+    const progressTween = gsap.to(progress, {
+      val: 90,
+      duration: 1.5,
+      ease: 'power1.out',
+      onUpdate() {
+        const v = Math.round(progress.val);
+        counter.textContent = v;
+        gsap.set(fill, { scaleX: v / 100 });
+      },
+      onComplete() {
+        if (isLoaded) {
+          finishProgress();
+        }
+      }
+    });
+
+    function finishProgress() {
+      gsap.to(progress, {
+        val: 100,
+        duration: 0.4,
+        ease: 'power2.out',
+        onUpdate() {
+          const v = Math.round(progress.val);
+          counter.textContent = v;
+          gsap.set(fill, { scaleX: v / 100 });
+        },
+        onComplete() {
+          outroTl.play();
+        }
+      });
+    }
+
+    const checkInterval = setInterval(() => {
+      if (isLoaded) {
+        clearInterval(checkInterval);
+        progressTween.kill();
+        finishProgress();
+      }
+    }, 50);
 
   });
 }
