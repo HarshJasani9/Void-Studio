@@ -11,17 +11,33 @@ gsap.registerPlugin(ScrollTrigger);
  * Infinite marquee scroll
  */
 export function initMarquee() {
-  const track = document.getElementById('marquee-track');
-  if (!track) return;
+  const tracks = document.querySelectorAll('.marquee__track');
+  if (tracks.length === 0) return;
 
-  // Clone content for seamless loop
-  track.innerHTML += track.innerHTML;
+  tracks.forEach((track, index) => {
+    // Clone content for seamless loop
+    track.innerHTML += track.innerHTML;
 
-  gsap.to(track, {
-    xPercent: -50,
-    duration: 20,
-    ease: 'none',
-    repeat: -1,
+    // Alternate direction based on index if desired, but here we just loop left
+    const direction = index % 2 === 0 ? -50 : 50; 
+    
+    // If direction is positive, we need to start at -50% and go to 0
+    if (direction === 50) {
+      gsap.set(track, { xPercent: -50 });
+      gsap.to(track, {
+        xPercent: 0,
+        duration: 20,
+        ease: 'none',
+        repeat: -1,
+      });
+    } else {
+      gsap.to(track, {
+        xPercent: -50,
+        duration: 20,
+        ease: 'none',
+        repeat: -1,
+      });
+    }
   });
 }
 

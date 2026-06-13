@@ -7,9 +7,13 @@
 
 .marquee__track {
   display: flex;
-  gap: var(--space-8);
   white-space: nowrap;
   will-change: transform;
+  width: max-content;
+}
+
+.marquee__track > * {
+  margin-right: var(--space-8);
 }
 
 .marquee__item {
@@ -24,7 +28,7 @@
 
 .marquee__separator {
   font-size: var(--fs-xl);
-  color: var(--clr-accent);
+  color: var(--clr-lime);
   flex-shrink: 0;
   display: flex;
   align-items: center;
