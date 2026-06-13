@@ -14,6 +14,17 @@ export function initCulture() {
 
   if (cards.length === 0) return;
 
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (isReduced) {
+    cards.forEach((card) => {
+      gsap.set(card, { autoAlpha: 1, scale: 1 });
+      const img = card.querySelector('.culture__img');
+      if (img) gsap.set(img, { filter: 'grayscale(40%)', scale: 1 });
+    });
+    if (infoCard) gsap.set(infoCard, { autoAlpha: 1, scale: 1 });
+    return;
+  }
+
   cards.forEach((card) => {
     const img = card.querySelector('.culture__img');
 

@@ -36,8 +36,10 @@
   transition: background-color 0.4s ease;
 }
 
-.work__item:hover {
-  background-color: var(--clr-bg-elevated);
+@media (hover: hover) {
+  .work__item:hover {
+    background-color: var(--clr-bg-elevated);
+  }
 }
 
 .work__item-inner {
@@ -71,8 +73,10 @@
   transition: color 0.4s ease;
 }
 
-.work__item:hover .magnetic-target {
-  color: var(--clr-lime);
+@media (hover: hover) {
+  .work__item:hover .magnetic-target {
+    color: var(--clr-lime);
+  }
 }
 
 .work__item-category {

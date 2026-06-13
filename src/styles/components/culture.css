@@ -53,9 +53,11 @@
 }
 
 /* Hover Saturation Boost + Image Scale */
-.culture__card:hover .culture__img {
-  filter: grayscale(0%) saturate(1.4);
-  transform: scale(1.05);
+@media (hover: hover) {
+  .culture__card:hover .culture__img {
+    filter: grayscale(0%) saturate(1.4);
+    transform: scale(1.05);
+  }
 }
 
 .culture__card-content {

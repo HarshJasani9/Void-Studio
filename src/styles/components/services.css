@@ -42,7 +42,9 @@
     gap: var(--grid-gap);
     padding-block: var(--space-10);
   }
+}
 
+@media (min-width: 768px) and (hover: hover) {
   /* Dynamic slide shift on desktop hover */
   .services__item:hover .services__item-inner {
     transform: translateX(24px);
@@ -57,10 +59,6 @@
   color: var(--clr-text-subtle);
   transition: color var(--duration-base) var(--ease-out);
   font-variant-numeric: tabular-nums;
-}
-
-.services__item:hover .services__item-index {
-  color: var(--clr-lime);
 }
 
 /* Service Title */
@@ -95,7 +93,13 @@
   will-change: transform;
 }
 
-.services__item:hover .services__item-underline {
-  transform: scaleX(1);
-  transform-origin: left center;
+@media (hover: hover) {
+  .services__item:hover .services__item-index {
+    color: var(--clr-lime);
+  }
+
+  .services__item:hover .services__item-underline {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
 }

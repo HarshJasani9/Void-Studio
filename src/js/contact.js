@@ -16,10 +16,12 @@ export function initContact() {
   const contactSection = document.getElementById('contact');
   if (!contactSection) return;
 
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // 1. SplitText reveal for massive title
   const title = document.getElementById('contact-title');
   let titleChars = [];
-  if (title) {
+  if (title && !isReduced) {
     const splitTitle = new SplitType(title, { types: 'chars' });
     titleChars = splitTitle.chars;
     // Set initial state
@@ -32,6 +34,14 @@ export function initContact() {
   const credits = document.querySelector('.contact__credits');
 
   // Create reveal timeline
+  if (isReduced) {
+    if (titleChars.length > 0) gsap.set(titleChars, { yPercent: 0, rotationZ: 0, autoAlpha: 1 });
+    if (emailWrapper) gsap.set(emailWrapper, { y: 0, autoAlpha: 1 });
+    if (socials.length > 0) gsap.set(socials, { y: 0, autoAlpha: 1 });
+    if (credits) gsap.set(credits, { autoAlpha: 1 });
+    return; // Skip magnetic physics & animations
+  }
+
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: contactSection,
@@ -88,7 +98,7 @@ export function initContact() {
   // Guard for touch devices
   const isTouch = window.matchMedia('(hover: none)').matches;
   
-  if (!isTouch && magnetics.length > 0) {
+  if (!isTouch && !isReduced && magnetics.length > 0) {
     magnetics.forEach((el) => {
       // Create quickTo instances for performance
       const xTo = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3.out' });

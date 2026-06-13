@@ -44,6 +44,17 @@ export function initLoader(lenis) {
     const panelL   = preloader.querySelector('.preloader__panel--left');
     const panelR   = preloader.querySelector('.preloader__panel--right');
 
+    // ── Reduced motion check ──────────────────────────────────────────────────
+    const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isReduced) {
+      preloader.style.display = 'none';
+      document.body.classList.remove('is-loading');
+      document.body.classList.add('is-loaded');
+      if (lenis) lenis.start();
+      resolve();
+      return;
+    }
+
     // ── Scroll lock ───────────────────────────────────────────────────────
     document.body.classList.add('is-loading');
     if (lenis) lenis.stop();

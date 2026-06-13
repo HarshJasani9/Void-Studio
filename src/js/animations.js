@@ -7,12 +7,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * Infinite marquee scroll
- */
 export function initMarquee() {
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const tracks = document.querySelectorAll('.marquee__track');
   if (tracks.length === 0) return;
+
+  if (isReduced) {
+    tracks.forEach((track) => {
+      track.innerHTML += track.innerHTML;
+    });
+    return;
+  }
 
   tracks.forEach((track, index) => {
     // Clone content for seamless loop
@@ -45,7 +50,15 @@ export function initMarquee() {
  * Reveal-on-scroll for [data-reveal] elements
  */
 export function initRevealAnimations() {
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const reveals = document.querySelectorAll('[data-reveal]');
+
+  if (isReduced) {
+    reveals.forEach((el) => {
+      gsap.set(el, { autoAlpha: 1, y: 0 });
+    });
+    return;
+  }
 
   reveals.forEach((el) => {
     gsap.from(el, {

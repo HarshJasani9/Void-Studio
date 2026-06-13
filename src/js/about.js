@@ -29,6 +29,12 @@ export function initAbout() {
 
   if (!section || !manifesto) return;
 
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (isReduced) {
+    gsap.set(manifesto, { opacity: 1, filter: 'none', y: 0 });
+    return;
+  }
+
   // ── SplitText — split into lines ──────────────────────────────────────────
   SplitText.create(manifesto, {
     type: 'lines',

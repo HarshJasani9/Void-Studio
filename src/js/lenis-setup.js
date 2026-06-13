@@ -28,6 +28,19 @@ gsap.registerPlugin(ScrollTrigger);
  * @returns {Lenis}
  */
 export function initLenis() {
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (isReduced) {
+    return {
+      on: () => {},
+      raf: () => {},
+      stop: () => {},
+      start: () => {},
+      destroy: () => {},
+      scroll: 0,
+      scrollTo: () => {},
+    };
+  }
+
   // ── 1. Create Lenis instance ──────────────────────────────────────────────
   const lenis = new Lenis({
     duration: 1.2,

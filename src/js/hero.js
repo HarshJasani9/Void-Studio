@@ -48,6 +48,19 @@ export function initHero() {
 
   if (!headline) return;
 
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (isReduced) {
+    gsap.set('.hero__eyebrow-line', { scaleX: 1 });
+    gsap.set(eyebrow, { autoAlpha: 1, x: 0 });
+    if (descriptor) {
+      gsap.set(descriptor.querySelectorAll('span'), { autoAlpha: 1, y: 0 });
+    }
+    if (scrollCue) {
+      gsap.set(scrollCue, { autoAlpha: 1 });
+    }
+    return;
+  }
+
   // ── SplitText — split each .hero__word into chars ──────────────────────────
   //
   // type: 'chars'      — only chars; skip words/lines for perf (skill tip)

@@ -14,6 +14,12 @@ export function initServices() {
 
   if (!list || items.length === 0) return;
 
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (isReduced) {
+    gsap.set(items, { y: 0, autoAlpha: 1 });
+    return;
+  }
+
   // Reveal list items sequentially with a stagger when list enters viewport
   gsap.from(items, {
     y: 60,

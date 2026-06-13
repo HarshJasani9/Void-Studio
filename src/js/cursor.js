@@ -24,6 +24,15 @@ export function initCursor() {
   const ring = document.getElementById('cursor-ring');
   if (!dot || !ring) return;
 
+  // ── Reduced motion check ──────────────────────────────────────────────────
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (isReduced) {
+    dot.style.display = 'none';
+    ring.style.display = 'none';
+    document.documentElement.style.cursor = 'auto';
+    return;
+  }
+
   // ── Touch / coarse-pointer guard ─────────────────────────────────────────
   const isTouch =
     window.matchMedia('(hover: none)').matches ||

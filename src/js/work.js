@@ -34,8 +34,10 @@ export function initWork(lenis) {
 
   if (workItems.length === 0 || !previewsContainer || !detail) return;
 
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   let isDetailOpen = false;
-  let isTrackingCursor = true;
+  let isTrackingCursor = !isReduced;
   let currentActivePreview = null;
 
   // ── Cursor Following Image Container ──────────────────────────────────────
@@ -43,7 +45,7 @@ export function initWork(lenis) {
   const yTo = gsap.quickTo(previewsContainer, 'y', { duration: 0.6, ease: 'power3' });
 
   const workSection = document.getElementById('work');
-  if (workSection) {
+  if (workSection && !isReduced) {
     workSection.addEventListener('mousemove', (e) => {
       if (!isTrackingCursor) return;
       xTo(e.clientX - window.innerWidth / 2);
@@ -62,7 +64,7 @@ export function initWork(lenis) {
     const magneticTarget = item.querySelector('.magnetic-target');
     let magXTo, magYTo;
     
-    if (magneticWrap && magneticTarget) {
+    if (magneticWrap && magneticTarget && !isReduced) {
       magXTo = gsap.quickTo(magneticTarget, 'x', { duration: 0.4, ease: 'power2' });
       magYTo = gsap.quickTo(magneticTarget, 'y', { duration: 0.4, ease: 'power2' });
       
@@ -83,47 +85,47 @@ export function initWork(lenis) {
     }
 
     // Image Reveal on Hover
-    if (!previewImg || !imgInside) return;
+    if (previewImg && imgInside && !isReduced) {
+      item.addEventListener('mouseenter', () => {
+        if (isDetailOpen) return;
+        
+        // Reveal wrapper with clip-path wipe
+        gsap.to(previewImg, {
+          autoAlpha: 1,
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 0.6,
+          ease: 'power4.out',
+          overwrite: 'auto'
+        });
+        // Scale down image inside
+        gsap.to(imgInside, {
+          scale: 1,
+          duration: 0.6,
+          ease: 'power4.out',
+          overwrite: 'auto'
+        });
+      });
 
-    item.addEventListener('mouseenter', () => {
-      if (isDetailOpen) return;
-      
-      // Reveal wrapper with clip-path wipe
-      gsap.to(previewImg, {
-        autoAlpha: 1,
-        clipPath: 'inset(0% 0% 0% 0%)',
-        duration: 0.6,
-        ease: 'power4.out',
-        overwrite: 'auto'
-      });
-      // Scale down image inside
-      gsap.to(imgInside, {
-        scale: 1,
-        duration: 0.6,
-        ease: 'power4.out',
-        overwrite: 'auto'
-      });
-    });
+      item.addEventListener('mouseleave', () => {
+        if (isDetailOpen) return;
 
-    item.addEventListener('mouseleave', () => {
-      if (isDetailOpen) return;
-
-      // Hide wrapper wiping down
-      gsap.to(previewImg, {
-        autoAlpha: 0,
-        clipPath: 'inset(100% 0% 0% 0%)',
-        duration: 0.4,
-        ease: 'power3.in',
-        overwrite: 'auto'
+        // Hide wrapper wiping down
+        gsap.to(previewImg, {
+          autoAlpha: 0,
+          clipPath: 'inset(100% 0% 0% 0%)',
+          duration: 0.4,
+          ease: 'power3.in',
+          overwrite: 'auto'
+        });
+        // Scale up image slightly
+        gsap.to(imgInside, {
+          scale: 1.2,
+          duration: 0.4,
+          ease: 'power3.in',
+          overwrite: 'auto'
+        });
       });
-      // Scale up image slightly
-      gsap.to(imgInside, {
-        scale: 1.2,
-        duration: 0.4,
-        ease: 'power3.in',
-        overwrite: 'auto'
-      });
-    });
+    }
 
     // ── Click Action: Open Detail View (FLIP Transition) ─────────────────────
     item.addEventListener('click', () => {
@@ -145,7 +147,14 @@ export function initWork(lenis) {
 
       // 1. Prepare SplitText on title
       const splitTitle = new SplitText(detailTitle, { type: 'chars' });
-      gsap.set(splitTitle.chars, { yPercent: 100, opacity: 0 });
+      
+      if (isReduced) {
+        gsap.set(splitTitle.chars, { yPercent: 0, opacity: 1 });
+        if (previewImg) gsap.set(previewImg, { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)' });
+        if (imgInside) gsap.set(imgInside, { scale: 1 });
+      } else {
+        gsap.set(splitTitle.chars, { yPercent: 100, opacity: 0 });
+      }
 
       // 2. Capture FLIP state before moving DOM element
       const state = Flip.getState([previewImg, imgInside]);
@@ -158,6 +167,7 @@ export function initWork(lenis) {
 
       // 4. Run transition timeline
       const tl = gsap.timeline();
+      if (isReduced) tl.timeScale(1000);
 
       // Fade backdrop overlay
       tl.to('.project-detail__overlay', {
@@ -227,13 +237,13 @@ export function initWork(lenis) {
 
         // Trigger FLIP back to normal preview state
         Flip.from(state, {
-          duration: 0.8,
+          duration: isReduced ? 0 : 0.8,
           ease: 'power3.inOut',
           nested: true,
           scale: true,
           onComplete: () => {
             isDetailOpen = false;
-            isTrackingCursor = true;
+            isTrackingCursor = !isReduced;
             
             // Resume page scrolling
             if (lenis) lenis.start();
@@ -246,6 +256,7 @@ export function initWork(lenis) {
         });
       }
     });
+    if (isReduced) tl.timeScale(1000);
 
     tl.to(detailClose, {
       opacity: 0,

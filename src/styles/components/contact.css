@@ -59,9 +59,11 @@
   will-change: transform;
 }
 
-.contact__email:hover {
-  background-color: var(--clr-lime);
-  color: var(--clr-bg);
+@media (hover: hover) {
+  .contact__email:hover {
+    background-color: var(--clr-lime);
+    color: var(--clr-bg);
+  }
 }
 
 /* Footer Bottom Layout */
@@ -112,13 +114,15 @@
   transition: transform var(--duration-base) var(--ease-out);
 }
 
-.contact__social-link:hover {
-  color: var(--clr-lime);
-}
+@media (hover: hover) {
+  .contact__social-link:hover {
+    color: var(--clr-lime);
+  }
 
-.contact__social-link:hover::after {
-  transform: scaleX(1);
-  transform-origin: left center;
+  .contact__social-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
 }
 
 .contact__credits {
