@@ -108,10 +108,14 @@
 
   /* -------- Z-index layers -------- */
   --z-base:     1;
+  --z-noise:    3;
   --z-dropdown: 100;
   --z-sticky:   200;
   --z-overlay:  300;
   --z-modal:    400;
   --z-cursor:   500;
   --z-loader:   1000;
+
+  /* -------- Custom variables -------- */
+  --hero-video-overlay-opacity: 0.7;
 }

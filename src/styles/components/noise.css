@@ -16,7 +16,7 @@
   inset: -5%; /* 5% bleed on all sides to hide edge during translate drift */
   width: 110%;
   height: 110%;
-  z-index: var(--z-loader, 1000); /* Just below loader, above everything else */
+  z-index: var(--z-noise, 3);
 
   /* Pointer / selection passthrough */
   pointer-events: none;

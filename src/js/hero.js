@@ -37,10 +37,64 @@ gsap.registerPlugin(SplitText, CustomEase);
 const hopEase = CustomEase.create('hop', '0.9, 0, 0.1, 1');
 
 /**
+ * initHeroVideo()
+ * Lazy-loads the video after preloader, checks screen size / accessibility rules,
+ * and sets up Intersection Observer to pause playback when out of view.
+ */
+function initHeroVideo() {
+  const video = document.getElementById('hero-video');
+  if (!video) return;
+
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.innerWidth <= 768;
+
+  // 1. Bypass loading completely on mobile and prefers-reduced-motion
+  if (isReduced || isMobile) {
+    return;
+  }
+
+  // 2. Resolve source elements for lazy loading
+  const sources = video.querySelectorAll('source');
+  sources.forEach((source) => {
+    const dataSrc = source.getAttribute('data-src');
+    if (dataSrc) {
+      source.setAttribute('src', dataSrc);
+    }
+  });
+
+  video.load();
+
+  // 3. Play video when ready
+  video.addEventListener('canplay', () => {
+    video.play().catch((err) => {
+      console.warn("Autoplay blocked by browser policy:", err);
+    });
+  }, { once: true });
+
+  // 4. Pause when hero section leaves viewport, play when it returns
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, {
+    threshold: 0.05,
+  });
+
+  observer.observe(video);
+}
+
+/**
  * initHero()
  * Runs after the preloader resolves — no delay needed here.
  */
 export function initHero() {
+  // Set up video lazy loading & intersection controls
+  initHeroVideo();
+
   const headline   = document.getElementById('hero-headline');
   const eyebrow    = document.getElementById('hero-eyebrow');
   const descriptor = document.getElementById('hero-descriptor');
