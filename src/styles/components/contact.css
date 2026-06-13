@@ -20,7 +20,7 @@
 /* Massive Title */
 .contact__title {
   font-family: var(--ff-display);
-  font-size: clamp(4rem, 15vw, 15rem);
+  font-size: clamp(3rem, 10vw, 11rem);
   font-weight: var(--fw-bold);
   line-height: var(--lh-none);
   text-transform: uppercase;
@@ -29,6 +29,26 @@
   letter-spacing: var(--ls-tighter);
   text-align: center;
   /* SplitType relies on overflow visible/hidden depending on effect, we clip lines */
+}
+
+@media (min-width: 480px) {
+  .contact__title {
+    white-space: nowrap;
+  }
+}
+
+.contact__title-text {
+  display: inline-block;
+  will-change: transform;
+}
+
+.contact__emoji {
+  display: inline-block;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 0.85em;
+  margin-inline: 0.05em;
+  vertical-align: middle;
+  will-change: transform;
 }
 
 .contact__title .char {

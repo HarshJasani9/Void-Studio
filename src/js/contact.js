@@ -21,11 +21,22 @@ export function initContact() {
   // 1. SplitText reveal for massive title
   const title = document.getElementById('contact-title');
   let titleChars = [];
-  if (title && !isReduced) {
-    const splitTitle = new SplitType(title, { types: 'chars' });
-    titleChars = splitTitle.chars;
-    // Set initial state
-    gsap.set(titleChars, { yPercent: 120, rotationZ: 10, autoAlpha: 0 });
+  const emoji = title ? title.querySelector('.contact__emoji') : null;
+
+  if (title) {
+    const titleTexts = title.querySelectorAll('.contact__title-text');
+    if (isReduced) {
+      if (titleTexts.length > 0) gsap.set(titleTexts, { yPercent: 0, rotationZ: 0, autoAlpha: 1 });
+      if (emoji) gsap.set(emoji, { scale: 1, autoAlpha: 1 });
+    } else {
+      const splits = Array.from(titleTexts).map(el => new SplitType(el, { types: 'chars' }));
+      titleChars = splits.flatMap(s => s.chars);
+      // Set initial state
+      gsap.set(titleChars, { yPercent: 120, rotationZ: 10, autoAlpha: 0 });
+      if (emoji) {
+        gsap.set(emoji, { scale: 0, autoAlpha: 0, transformOrigin: 'center center' });
+      }
+    }
   }
 
   // 2. Elements to stagger in
@@ -35,7 +46,6 @@ export function initContact() {
 
   // Create reveal timeline
   if (isReduced) {
-    if (titleChars.length > 0) gsap.set(titleChars, { yPercent: 0, rotationZ: 0, autoAlpha: 1 });
     if (emailWrapper) gsap.set(emailWrapper, { y: 0, autoAlpha: 1 });
     if (socials.length > 0) gsap.set(socials, { y: 0, autoAlpha: 1 });
     if (credits) gsap.set(credits, { autoAlpha: 1 });
@@ -60,6 +70,16 @@ export function initContact() {
       stagger: 0.04,
       ease: 'power4.out',
     });
+  }
+
+  // Animate heart-hands emoji
+  if (emoji) {
+    tl.to(emoji, {
+      scale: 1,
+      autoAlpha: 1,
+      duration: 0.8,
+      ease: 'back.out(1.7)',
+    }, '+=0.2');
   }
 
   // Animate email
