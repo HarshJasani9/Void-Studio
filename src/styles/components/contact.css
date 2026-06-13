@@ -14,7 +14,45 @@
 .contact__container {
   display: flex;
   flex-direction: column;
-  gap: var(--space-16);
+  gap: var(--space-12); /* Reduced gap to improve vertical rhythm */
+  position: relative;
+  z-index: 2;
+}
+
+/* Background Marquee Ticker */
+.contact__marquee {
+  position: absolute;
+  top: 25%;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.025; /* Subtle background presence */
+  white-space: nowrap;
+}
+
+.contact__marquee-track {
+  display: flex;
+  white-space: nowrap;
+  width: max-content;
+  animation: contactMarquee 35s linear infinite;
+}
+
+.contact__marquee-track span {
+  display: inline-block;
+  font-family: var(--ff-display);
+  font-size: clamp(4rem, 15vw, 15rem);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-tighter);
+  color: var(--clr-text);
+  padding-right: var(--space-6);
+}
+
+@keyframes contactMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 /* Massive Title */
@@ -28,7 +66,10 @@
   margin: 0;
   letter-spacing: var(--ls-tighter);
   text-align: center;
-  /* SplitType relies on overflow visible/hidden depending on effect, we clip lines */
+}
+
+.contact__title .accent {
+  color: var(--clr-lime);
 }
 
 @media (min-width: 480px) {
@@ -42,26 +83,17 @@
   will-change: transform;
 }
 
-.contact__emoji {
-  display: inline-block;
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-  font-size: 0.85em;
-  margin-inline: 0.05em;
-  vertical-align: middle;
-  will-change: transform;
-}
-
 .contact__title .char {
   display: inline-block;
   will-change: transform;
 }
 
-/* Email CTA */
+/* Email CTA Button */
 .contact__email-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-block: var(--space-12);
+  padding-block: var(--space-6) var(--space-10); /* Tighter vertical footprint */
 }
 
 .contact__email {
@@ -70,19 +102,127 @@
   color: var(--clr-lime);
   text-decoration: none;
   display: inline-block;
-  padding: var(--space-5) var(--space-10);
-  border: 1px solid var(--clr-lime);
+  padding: var(--space-6) var(--space-12); /* Increased padding for substantial feel */
+  border: 1.5px solid var(--clr-lime);
   border-radius: 999px;
-  transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+  background-color: transparent;
   text-transform: uppercase;
   letter-spacing: var(--ls-wider);
-  will-change: transform;
+  transition: 
+    background-color var(--duration-base) var(--ease-out), 
+    color var(--duration-base) var(--ease-out), 
+    border-color var(--duration-base) var(--ease-out), 
+    box-shadow var(--duration-base) var(--ease-out);
+  will-change: transform, box-shadow;
+  z-index: 2;
+  position: relative;
 }
 
 @media (hover: hover) {
   .contact__email:hover {
     background-color: var(--clr-lime);
     color: var(--clr-bg);
+    border-color: var(--clr-lime);
+    box-shadow: 0 0 35px rgba(200, 255, 0, 0.45); /* Accent lime glow */
+  }
+}
+
+/* Contact Info Grid */
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  border-top: 1px solid var(--clr-border);
+  padding-top: var(--space-8);
+  margin-top: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .contact__grid {
+    grid-template-columns: 1.5fr 1.5fr 2fr;
+    gap: var(--grid-gap);
+  }
+}
+
+.contact__grid-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.contact__grid-label {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-xs);
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-widest);
+}
+
+.contact__grid-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.contact__grid-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+
+.contact__grid-link {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-sm);
+  color: var(--clr-text);
+  text-decoration: none;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  transition: color var(--duration-fast) var(--ease-out);
+  will-change: transform;
+}
+
+.contact__grid-link--large {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  text-transform: lowercase;
+}
+
+.contact__grid-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--clr-lime);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.contact__location {
+  font-family: var(--ff-body);
+  font-size: var(--fs-sm);
+  color: var(--clr-text);
+  margin: 0;
+}
+
+.contact__time {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-sm);
+  color: var(--clr-lime);
+  margin: 0;
+}
+
+@media (hover: hover) {
+  .contact__grid-link:hover {
+    color: var(--clr-lime);
+  }
+
+  .contact__grid-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
   }
 }
 
@@ -93,6 +233,7 @@
   gap: var(--space-8);
   border-top: 1px solid var(--clr-border);
   padding-top: var(--space-8);
+  margin-top: var(--space-4);
 }
 
 @media (min-width: 768px) {

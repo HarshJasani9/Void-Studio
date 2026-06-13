@@ -404,19 +404,51 @@
       </main>
 
         <footer id="contact" class="contact">
+          <!-- Background Marquee/Ticker -->
+          <div class="contact__marquee" aria-hidden="true">
+            <div class="contact__marquee-track">
+              <span>AVAILABLE FOR PROJECTS — 2026 — LET'S BUILD SOMETHING — AVAILABLE FOR PROJECTS — 2026 — LET'S BUILD SOMETHING — </span>
+              <span>AVAILABLE FOR PROJECTS — 2026 — LET'S BUILD SOMETHING — AVAILABLE FOR PROJECTS — 2026 — LET'S BUILD SOMETHING — </span>
+            </div>
+          </div>
+
           <div class="container contact__container">
             <!-- Massive SplitText Reveal -->
-            <h2 class="contact__title" id="contact-title" aria-label="LET'S TALK">
-              <span class="contact__title-text">LET'S</span>
-           <span class="contact__emoji">🤝🏻</span>
-           <span class="contact__title-text">TALK</span>
+            <h2 class="contact__title" id="contact-title" aria-label="LET'S TALK.">
+              <span class="contact__title-text">LET'S TALK</span><span class="accent">.</span>
             </h2>
             
             <!-- Magnetic Email Link -->
             <div class="contact__email-wrapper">
-              <a href="mailto:hello@void.studio" class="contact__email" data-magnetic>
+              <a href="mailto:hello@void.studio" class="contact__email" id="contact-email-btn" data-magnetic>
                 hello@void.studio
               </a>
+            </div>
+
+            <!-- Contact Information Grid -->
+            <div class="contact__grid">
+              <div class="contact__grid-col">
+                <span class="contact__grid-label">Email</span>
+                <div class="contact__grid-content">
+                  <a href="mailto:hello@void.studio" class="contact__grid-link contact__grid-link--large" data-magnetic>hello@void.studio</a>
+                </div>
+              </div>
+              <div class="contact__grid-col">
+                <span class="contact__grid-label">Socials</span>
+                <div class="contact__grid-content contact__grid-socials">
+                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="contact__grid-link" data-magnetic>Instagram</a>
+                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="contact__grid-link" data-magnetic>Twitter</a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="contact__grid-link" data-magnetic>LinkedIn</a>
+                  <a href="https://awwwards.com" target="_blank" rel="noopener noreferrer" class="contact__grid-link" data-magnetic>Awwwards</a>
+                </div>
+              </div>
+              <div class="contact__grid-col">
+                <span class="contact__grid-label">Location & Time</span>
+                <div class="contact__grid-content">
+                  <p class="contact__location">Ahmedabad, India — Available Worldwide</p>
+                  <p class="contact__time" id="contact-time">00:00:00 (GMT+5:30)</p>
+                </div>
+              </div>
             </div>
             
             <!-- Staggered Social Links & Copyright -->
