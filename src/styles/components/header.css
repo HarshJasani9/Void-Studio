@@ -61,15 +61,18 @@
 
 .nav__link--cta {
   padding: var(--space-2) var(--space-5);
-  border: 1px solid var(--clr-accent);
+  border: 1.5px solid var(--clr-lime);
+  color: var(--clr-lime);
   border-radius: var(--radius-full);
   transition: background-color var(--duration-fast) var(--ease-out),
-              color var(--duration-fast) var(--ease-out);
+              color var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .nav__link--cta:hover {
-  background-color: var(--clr-accent);
+  background-color: var(--clr-lime);
   color: var(--clr-bg);
+  box-shadow: 0 0 15px rgba(200, 255, 0, 0.4);
 }
 
 .nav__link--cta::after { display: none; }

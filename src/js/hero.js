@@ -26,11 +26,12 @@
  */
 
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import { CustomEase } from 'gsap/CustomEase';
 
-// Register once — before any SplitText or CustomEase usage
-gsap.registerPlugin(SplitText, CustomEase);
+// Register once — before any SplitText, CustomEase or ScrollTrigger usage
+gsap.registerPlugin(ScrollTrigger, SplitText, CustomEase);
 
 // ── CustomEase "hop" — steep deceleration, punchy character reveal ────────────
 // "0.9, 0, 0.1, 1" = cubic-bezier: fast start, near-instant stop
@@ -204,6 +205,21 @@ function buildTimeline(chars, eyebrow, descriptor, scrollCue) {
     yoyo: true,
     delay: 1,            // let entrance finish before starting loop
   });
+
+  // Fade out scroll cue as user scrolls down
+  if (scrollCue) {
+    gsap.to(scrollCue, {
+      autoAlpha: 0,
+      y: -30,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom 40%',
+        scrub: true,
+      },
+    });
+  }
 
   return tl;
 }
