@@ -1,166 +1,123 @@
 /**
  * work.js
  *
- * Work/Projects section: Cursor-following preview images with CSS clip-path distortion,
- * magnetic typography hover effects, and a FLIP-based project detail transition.
- *
- * Plugins used (gsap-plugins skill):
- *   - ScrollTrigger — pin/reveal transitions
- *   - SplitText     — character splitting for titles
- *   - Flip          — transition image between cursor follow and full screen
- *
- * Performance (gsap-performance skill):
- *   ✅ gsap.quickTo() used for tracking mouse coordinates.
- *   ✅ Stop mouse coordinates tracking while detail overlay is active.
- *   ✅ Lenis scroll instance is stopped/started on detail overlay open/close.
+ * Work/Projects section: Horizontal scroll showcase pinned via GSAP ScrollTrigger.
+ * Includes card hovers, smooth parallax shifts, and FLIP-based fullscreen detail views.
  */
 
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Flip } from 'gsap/Flip';
 import { SplitText } from 'gsap/SplitText';
 
 // Register plugins
-gsap.registerPlugin(Flip, SplitText);
+gsap.registerPlugin(ScrollTrigger, Flip, SplitText);
 
 export function initWork(lenis) {
-  const workItems = document.querySelectorAll('.work__item');
-  const previewsContainer = document.getElementById('work-previews');
+  const section = document.getElementById('work');
+  const track = document.getElementById('work-track');
+  const cards = document.querySelectorAll('.work__card');
   const detail = document.getElementById('project-detail');
   const detailClose = document.getElementById('detail-close');
   const detailImgContainer = document.getElementById('detail-img-container');
   const detailTitle = document.getElementById('detail-title');
   const detailCategory = document.getElementById('detail-category');
   const detailServices = document.getElementById('detail-services');
+  const detailDesc = document.getElementById('detail-desc');
 
-  if (workItems.length === 0 || !previewsContainer || !detail) return;
+  if (!section || !track || cards.length === 0 || !detail) return;
 
   const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
   let isDetailOpen = false;
-  let isTrackingCursor = !isReduced;
-  let currentActivePreview = null;
+  let currentActiveCard = null;
+  let currentImgContainer = null;
+  let originalParent = null;
 
-  // ── Cursor Following Image Container ──────────────────────────────────────
-  const xTo = gsap.quickTo(previewsContainer, 'x', { duration: 0.6, ease: 'power3' });
-  const yTo = gsap.quickTo(previewsContainer, 'y', { duration: 0.6, ease: 'power3' });
+  // ── 1. Horizontal Scroll Animation via ScrollTrigger ──────────────────────
+  let scrollTween = null;
 
-  const workSection = document.getElementById('work');
-  if (workSection && !isReduced) {
-    workSection.addEventListener('mousemove', (e) => {
-      if (!isTrackingCursor) return;
-      xTo(e.clientX - window.innerWidth / 2);
-      yTo(e.clientY - window.innerHeight / 2);
+  if (!isMobile && !isReduced) {
+    // Scroll track horizontal slide
+    scrollTween = gsap.to(track, {
+      x: () => -(track.scrollWidth - window.innerWidth),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        pin: true,
+        scrub: 1.0,
+        start: 'top top',
+        end: () => `+=${track.scrollWidth - window.innerWidth}`,
+        invalidateOnRefresh: true,
+      }
+    });
+
+    // Parallax effect on images during horizontal scrolling
+    cards.forEach((card) => {
+      const img = card.querySelector('.work__img-container img');
+      if (img) {
+        gsap.fromTo(img,
+          { x: '-8%' },
+          {
+            x: '8%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: card,
+              containerAnimation: scrollTween,
+              start: 'left right',
+              end: 'right left',
+              scrub: true,
+            }
+          }
+        );
+      }
     });
   }
 
-  // ── Individual Project Interactions ───────────────────────────────────────
-  workItems.forEach((item) => {
-    const id = item.getAttribute('data-project-id');
-    const previewImg = document.querySelector(`.work__preview-img[data-project-img="${id}"]`);
-    const imgInside = previewImg ? previewImg.querySelector('img') : null;
-    
-    // Magnetic Title
-    const magneticWrap = item.querySelector('.magnetic-wrap');
-    const magneticTarget = item.querySelector('.magnetic-target');
-    let magXTo, magYTo;
-    
-    if (magneticWrap && magneticTarget && !isReduced) {
-      magXTo = gsap.quickTo(magneticTarget, 'x', { duration: 0.4, ease: 'power2' });
-      magYTo = gsap.quickTo(magneticTarget, 'y', { duration: 0.4, ease: 'power2' });
-      
-      magneticWrap.addEventListener('mousemove', (e) => {
-        if (isDetailOpen) return;
-        const rect = magneticWrap.getBoundingClientRect();
-        const relX = (e.clientX - rect.left) / rect.width - 0.5;
-        const relY = (e.clientY - rect.top) / rect.height - 0.5;
-        
-        magXTo(relX * 40);
-        magYTo(relY * 40);
-      });
-      
-      magneticWrap.addEventListener('mouseleave', () => {
-        magXTo(0);
-        magYTo(0);
-      });
-    }
-
-    // Image Reveal on Hover
-    if (previewImg && imgInside && !isReduced) {
-      item.addEventListener('mouseenter', () => {
-        if (isDetailOpen) return;
-        
-        // Reveal wrapper with clip-path wipe
-        gsap.to(previewImg, {
-          autoAlpha: 1,
-          clipPath: 'inset(0% 0% 0% 0%)',
-          duration: 0.6,
-          ease: 'power4.out',
-          overwrite: 'auto'
-        });
-        // Scale down image inside
-        gsap.to(imgInside, {
-          scale: 1,
-          duration: 0.6,
-          ease: 'power4.out',
-          overwrite: 'auto'
-        });
-      });
-
-      item.addEventListener('mouseleave', () => {
-        if (isDetailOpen) return;
-
-        // Hide wrapper wiping down
-        gsap.to(previewImg, {
-          autoAlpha: 0,
-          clipPath: 'inset(100% 0% 0% 0%)',
-          duration: 0.4,
-          ease: 'power3.in',
-          overwrite: 'auto'
-        });
-        // Scale up image slightly
-        gsap.to(imgInside, {
-          scale: 1.2,
-          duration: 0.4,
-          ease: 'power3.in',
-          overwrite: 'auto'
-        });
-      });
-    }
-
-    // ── Click Action: Open Detail View (FLIP Transition) ─────────────────────
-    item.addEventListener('click', () => {
+  // ── 2. Click Action: Open Detail View (FLIP Transition) ─────────────────────
+  cards.forEach((card) => {
+    card.addEventListener('click', () => {
       if (isDetailOpen) return;
       isDetailOpen = true;
-      isTrackingCursor = false;
-      currentActivePreview = previewImg;
+      currentActiveCard = card;
 
       // Stop page scrolling via Lenis
       if (lenis) lenis.stop();
 
-      // Populate detail content dynamically
-      const titleText = item.querySelector('.magnetic-target').textContent;
-      const categoryText = item.querySelector('.work__item-category').textContent;
+      const imgContainer = card.querySelector('.work__img-container');
+      const imgInside = imgContainer ? imgContainer.querySelector('img') : null;
+      currentImgContainer = imgContainer;
+      originalParent = imgContainer.parentNode;
+
+      // Populate detail content dynamically from card
+      const titleText = card.querySelector('.work__card-title').textContent;
+      const categoryText = card.querySelector('.work__card-category').textContent;
+      const descText = card.querySelector('.work__card-desc').textContent;
       
       detailTitle.textContent = titleText;
       detailCategory.textContent = categoryText;
-      detailServices.textContent = categoryText === 'Product / App' ? 'Product, App Dev, UI' : 'Strategy, Visuals, Dev';
+      detailDesc.textContent = descText;
+      detailServices.textContent = categoryText.includes('Visual') ? 'WebGL, Custom Shaders, Math' :
+                                   categoryText.includes('Luxury') ? 'Branding, Shopify, UI/UX' :
+                                   categoryText.includes('Digital') ? 'Telemetry, GSAP, Audio Reactive' :
+                                   categoryText.includes('Identity') ? 'Graphic Design, Stationery, Motion' :
+                                   'Svelte, API, SVG Renderers';
 
       // 1. Prepare SplitText on title
       const splitTitle = new SplitText(detailTitle, { type: 'chars' });
       
       if (isReduced) {
         gsap.set(splitTitle.chars, { yPercent: 0, opacity: 1 });
-        if (previewImg) gsap.set(previewImg, { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)' });
-        if (imgInside) gsap.set(imgInside, { scale: 1 });
       } else {
         gsap.set(splitTitle.chars, { yPercent: 100, opacity: 0 });
       }
 
       // 2. Capture FLIP state before moving DOM element
-      const state = Flip.getState([previewImg, imgInside]);
+      const state = Flip.getState([imgContainer, imgInside]);
 
-      // 3. Move preview image to detail container parent (breaks parent coordinate transform)
-      detailImgContainer.appendChild(previewImg);
+      // 3. Move image container to detail container parent
+      detailImgContainer.appendChild(imgContainer);
 
       // Make detail container block and visible
       detail.classList.add('is-open');
@@ -176,7 +133,7 @@ export function initWork(lenis) {
         ease: 'power2.out'
       }, 0);
 
-      // FLIP image from cursor position to full bleed
+      // FLIP image from card track position to fullscreen
       tl.add(
         Flip.from(state, {
           duration: 0.8,
@@ -214,20 +171,20 @@ export function initWork(lenis) {
     });
   });
 
-  // ── Close Detail View (Reverse Transition) ─────────────────────────────────
+  // ── 3. Close Detail View (Reverse Transition) ─────────────────────────────────
   function closeProjectDetail() {
-    if (!isDetailOpen || !currentActivePreview) return;
+    if (!isDetailOpen || !currentImgContainer || !originalParent) return;
 
-    const imgInside = currentActivePreview.querySelector('img');
+    const imgInside = currentImgContainer.querySelector('img');
 
     // 1. Fade out content first
     const tl = gsap.timeline({
       onComplete: () => {
-        // Capture full-bleed state
-        const state = Flip.getState([currentActivePreview, imgInside]);
+        // Capture fullscreen state
+        const state = Flip.getState([currentImgContainer, imgInside]);
 
-        // Move preview image back to original cursor parent
-        previewsContainer.appendChild(currentActivePreview);
+        // Move image container back to its original card element
+        originalParent.insertBefore(currentImgContainer, originalParent.firstChild);
 
         // Hide detail container
         detail.classList.remove('is-open');
@@ -235,7 +192,7 @@ export function initWork(lenis) {
         // Reset text content styling to clear split properties
         gsap.set('.project-detail__content', { clearProps: 'all' });
 
-        // Trigger FLIP back to normal preview state
+        // Trigger FLIP back to card state
         Flip.from(state, {
           duration: isReduced ? 0 : 0.8,
           ease: 'power3.inOut',
@@ -243,15 +200,16 @@ export function initWork(lenis) {
           scale: true,
           onComplete: () => {
             isDetailOpen = false;
-            isTrackingCursor = !isReduced;
             
             // Resume page scrolling
             if (lenis) lenis.start();
 
             // Reset preview image styles so normal hover functions normally
-            gsap.set(currentActivePreview, { clearProps: 'all' });
+            gsap.set(currentImgContainer, { clearProps: 'all' });
             gsap.set(imgInside, { clearProps: 'all' });
-            currentActivePreview = null;
+            currentImgContainer = null;
+            originalParent = null;
+            currentActiveCard = null;
           }
         });
       }

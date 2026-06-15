@@ -1,140 +1,275 @@
 /* ============================================================
-   WORK / PROJECTS GRID
-   Full-screen rows, cursor-following image previews.
+   WORK / PROJECTS HORIZONTAL SCROLL SHOWCASE
+   Pinned horizontal list of cards with micro-animations.
    ============================================================ */
 
 .work {
-  padding: var(--space-20) 0;
+  width: 100%;
+  overflow: hidden;
   position: relative;
   background-color: var(--clr-bg);
 }
 
-.work__header {
-  margin-bottom: var(--space-12);
+.work__pinned-wrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Horizontal scrolling track */
+.work__track {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 80vh;
+  align-items: center;
+  padding-left: 6%;
+  padding-right: 25vw; /* Room to slide out nicely at the end */
+  gap: var(--space-12);
+  will-change: transform;
+}
+
+/* Intro Header Card */
+.work__intro-card {
+  flex-shrink: 0;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding-right: var(--space-8);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.work__eyebrow {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-xs);
+  color: var(--clr-accent);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-widest);
+  margin-bottom: var(--space-3);
+  display: block;
 }
 
 .work__title {
   font-family: var(--ff-display);
-  font-size: var(--fs-xl);
-  font-weight: var(--fw-bold);
-  text-transform: uppercase;
-  letter-spacing: var(--ls-tight);
-}
-
-/* ── Project List ── */
-.work__list {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid var(--clr-border);
-}
-
-.work__item {
-  position: relative;
-  border-bottom: 1px solid var(--clr-border);
-  padding: var(--space-8) 0;
-  cursor: pointer;
-  transition: background-color var(--duration-base) var(--ease-out);
-}
-
-@media (hover: hover) {
-  .work__item:hover {
-    background-color: var(--clr-bg-elevated);
-  }
-}
-
-.work__item-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* To ensure magnetic target doesn't overflow container */
-  position: relative;
-}
-
-.work__item-title {
-  font-family: var(--ff-display);
-  font-size: clamp(3rem, 8vw, 8rem);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: var(--fw-black);
   text-transform: uppercase;
-  line-height: 0.9;
+  line-height: 0.95;
   letter-spacing: -0.02em;
   color: var(--clr-text);
-  /* The wrapper handles magnetic movement */
-  will-change: transform;
+  margin-bottom: var(--space-16);
 }
 
-/* Magnetic wrap handles hover area, target is the moving text */
-.magnetic-wrap {
-  display: inline-block;
+/* Scroll indicator inside intro card */
+.work__scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: auto;
 }
 
-.magnetic-target {
-  display: inline-block;
-  pointer-events: none;
-  transition: color var(--duration-base) var(--ease-out);
+.work__scroll-label {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  color: var(--clr-text-subtle);
 }
 
-@media (hover: hover) {
-  .work__item:hover .magnetic-target {
-    color: var(--clr-lime);
+.work__scroll-line {
+  width: 120px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.work__scroll-line-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 40px;
+  background-color: var(--clr-lime);
+  animation: scroll-fill-anim 1.8s infinite ease-in-out;
+}
+
+@keyframes scroll-fill-anim {
+  0% {
+    transform: translateX(-40px);
+  }
+  100% {
+    transform: translateX(120px);
   }
 }
 
-.work__item-category {
-  font-family: var(--ff-body);
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--ls-widest);
-  text-transform: uppercase;
-  color: var(--clr-text-muted);
+/* Project Cards */
+.work__card {
+  flex-shrink: 0;
+  width: clamp(340px, 42vw, 520px);
+  height: 100%;
+  cursor: pointer;
 }
 
-/* ── Cursor Following Previews ── */
-.work__previews {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 50; /* Above content, below cursor */
+.work__card-inner {
+  height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: relative;
 }
 
-.work__preview-img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 400px;
-  height: 500px;
-  /* Center offset */
-  margin-top: -250px;
-  margin-left: -200px;
+.work__img-container {
+  width: 100%;
+  aspect-ratio: 16 / 13;
   overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
-  will-change: transform, opacity;
-  /* Clip-path for distortion effect on hover */
-  clip-path: inset(100% 0% 0% 0%);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--clr-border);
+  position: relative;
+  background-color: rgba(25, 25, 25, 0.2);
 }
 
-.work__preview-img img {
+.work__img-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.2); /* For scaling down on reveal */
+  filter: grayscale(15%) contrast(1.02);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s var(--ease-out);
   will-change: transform;
 }
 
-@media (max-width: 768px) {
-  .work__previews {
-    display: none; /* Disable previews on mobile */
+.work__img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(10, 10, 10, 0.4));
+  opacity: 1;
+  transition: opacity 0.4s var(--ease-out);
+  pointer-events: none;
+}
+
+.work__card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-inline: var(--space-2);
+}
+
+.work__card-num {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-xs);
+  color: var(--clr-text-subtle);
+}
+
+.work__card-category {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  color: var(--clr-lime);
+  margin-top: var(--space-1);
+}
+
+.work__card-title {
+  font-family: var(--ff-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: var(--fw-bold);
+  color: var(--clr-text);
+  line-height: var(--lh-tight);
+}
+
+.work__card-desc {
+  font-family: var(--ff-body);
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+  line-height: var(--lh-relaxed);
+  max-width: 42ch;
+  opacity: 0.8;
+  margin-bottom: var(--space-2);
+}
+
+.work__card-btn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--clr-text);
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: fit-content;
+  cursor: pointer;
+  transition: background-color var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out),
+              color var(--duration-base) var(--ease-out);
+}
+
+.work__card-btn svg {
+  transition: transform 0.3s var(--ease-out);
+}
+
+/* Card Hover Interactions */
+@media (hover: hover) {
+  .work__card:hover .work__img-container img {
+    transform: scale(1.05);
+    filter: grayscale(0%) contrast(1.05);
   }
-  .work__item-inner {
+
+  .work__card:hover .work__img-overlay {
+    opacity: 0.6;
+  }
+
+  .work__card:hover .work__card-btn {
+    background-color: var(--clr-lime);
+    border-color: var(--clr-lime);
+    color: var(--clr-bg);
+  }
+
+  .work__card:hover .work__card-btn svg {
+    transform: translate(1px, -1px);
+  }
+}
+
+@media (max-width: 768px) {
+  .work__track {
+    height: auto;
     flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-4);
+    padding-left: var(--container-pad);
+    padding-right: var(--container-pad);
+    gap: var(--space-12);
+  }
+
+  .work__pinned-wrapper {
+    height: auto;
+    overflow: visible;
+    display: block;
+    padding-block: var(--space-16);
+  }
+
+  .work__intro-card {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: var(--space-6);
+    margin-bottom: var(--space-6);
+    height: auto;
+  }
+
+  .work__card {
+    width: 100%;
+    height: auto;
+  }
+
+  .work__scroll-indicator {
+    display: none;
   }
 }
 

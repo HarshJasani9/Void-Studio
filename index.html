@@ -190,66 +190,125 @@
       <!-- Main content placeholder sections (to be built out later) -->
       <main id="main">
         <!-- ═══════════════════════════════════════════════
-             WORK / PROJECTS GRID
+             WORK / PROJECTS HORIZONTAL SCROLL SHOWCASE
         ════════════════════════════════════════════════════ -->
         <section id="work" class="work">
-          <div class="container grid">
-            <div class="work__header">
-              <h2 class="work__title" data-reveal>Selected Work</h2>
-            </div>
-          </div>
-
-          <div class="work__list">
-            <article class="work__item" data-project-id="1">
-              <div class="container work__item-inner">
-                <h3 class="work__item-title magnetic-wrap">
-                  <span class="magnetic-target">Lumen Studio</span>
-                </h3>
-                <span class="work__item-category">Branding / Web</span>
+          <div class="work__pinned-wrapper">
+            <!-- Horizontal scrolling track -->
+            <div class="work__track" id="work-track">
+              
+              <!-- Intro Header Card inside the track -->
+              <div class="work__intro-card">
+                <span class="work__eyebrow" data-reveal>SELECTED PORTFOLIO</span>
+                <h2 class="work__title" data-reveal>Selected<br>Work</h2>
+                <div class="work__scroll-indicator">
+                  <span class="work__scroll-label">Scroll to explore</span>
+                  <div class="work__scroll-line">
+                    <div class="work__scroll-line-fill"></div>
+                  </div>
+                </div>
               </div>
-            </article>
-            
-            <article class="work__item" data-project-id="2">
-              <div class="container work__item-inner">
-                <h3 class="work__item-title magnetic-wrap">
-                  <span class="magnetic-target">Aura Arch</span>
-                </h3>
-                <span class="work__item-category">Digital / Motion</span>
-              </div>
-            </article>
 
-            <article class="work__item" data-project-id="3">
-              <div class="container work__item-inner">
-                <h3 class="work__item-title magnetic-wrap">
-                  <span class="magnetic-target">Nova Type</span>
-                </h3>
-                <span class="work__item-category">Typography / Web</span>
-              </div>
-            </article>
+              <!-- Project 1: SPECTRUM -->
+              <article class="work__card" data-project-id="1">
+                <div class="work__card-inner">
+                  <div class="work__img-container">
+                    <img src="/src/assets/images/work/project-1.jpg" alt="Spectrum Project" loading="lazy" decoding="async" />
+                    <div class="work__img-overlay"></div>
+                  </div>
+                  <div class="work__card-content">
+                    <span class="work__card-num">01</span>
+                    <span class="work__card-category">Visual / WebGL</span>
+                    <h3 class="work__card-title">Spectrum</h3>
+                    <p class="work__card-desc">High-fidelity 3D light diffraction simulation splitting light into pure colors.</p>
+                    <button class="work__card-btn" data-cursor-hover>
+                      <span>Explore</span>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </article>
 
-            <article class="work__item" data-project-id="4">
-              <div class="container work__item-inner">
-                <h3 class="work__item-title magnetic-wrap">
-                  <span class="magnetic-target">TechFlow</span>
-                </h3>
-                <span class="work__item-category">Product / App</span>
-              </div>
-            </article>
-          </div>
+              <!-- Project 2: NEXUS -->
+              <article class="work__card" data-project-id="2">
+                <div class="work__card-inner">
+                  <div class="work__img-container">
+                    <img src="/src/assets/images/work/project-2.jpg" alt="Nexus Project" loading="lazy" decoding="async" />
+                    <div class="work__img-overlay"></div>
+                  </div>
+                  <div class="work__card-content">
+                    <span class="work__card-num">02</span>
+                    <span class="work__card-category">Luxury / E-Commerce</span>
+                    <h3 class="work__card-title">Nexus</h3>
+                    <p class="work__card-desc">Modern e-commerce platform blending minimalism with immersive luxury aesthetics.</p>
+                    <button class="work__card-btn" data-cursor-hover>
+                      <span>Explore</span>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </article>
 
-          <!-- Cursor Following Preview Images -->
-          <div class="work__previews" id="work-previews" aria-hidden="true">
-            <div class="work__preview-img" data-project-img="1">
-              <img src="/src/assets/images/work/project-1.png" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="work__preview-img" data-project-img="2">
-              <img src="/src/assets/images/work/project-2.png" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="work__preview-img" data-project-img="3">
-              <img src="/src/assets/images/work/project-3.png" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="work__preview-img" data-project-img="4">
-              <img src="/src/assets/images/work/project-4.png" alt="" loading="lazy" decoding="async" />
+              <!-- Project 3: LUMINA -->
+              <article class="work__card" data-project-id="3">
+                <div class="work__card-inner">
+                  <div class="work__img-container">
+                    <img src="/src/assets/images/work/project-3.jpg" alt="Lumina Project" loading="lazy" decoding="async" />
+                    <div class="work__img-overlay"></div>
+                  </div>
+                  <div class="work__card-content">
+                    <span class="work__card-num">03</span>
+                    <span class="work__card-category">Digital / Experience</span>
+                    <h3 class="work__card-title">Lumina</h3>
+                    <p class="work__card-desc">Dynamic particle flow field visualization reacting to motion and mouse telemetry.</p>
+                    <button class="work__card-btn" data-cursor-hover>
+                      <span>Explore</span>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Project 4: VERTEX -->
+              <article class="work__card" data-project-id="4">
+                <div class="work__card-inner">
+                  <div class="work__img-container">
+                    <img src="/src/assets/images/work/project-4.jpg" alt="Vertex Project" loading="lazy" decoding="async" />
+                    <div class="work__img-overlay"></div>
+                  </div>
+                  <div class="work__card-content">
+                    <span class="work__card-num">04</span>
+                    <span class="work__card-category">Identity / Brand</span>
+                    <h3 class="work__card-title">Vertex</h3>
+                    <p class="work__card-desc">Premium identity design system celebrating engineering excellence and minimal geometry.</p>
+                    <button class="work__card-btn" data-cursor-hover>
+                      <span>Explore</span>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Project 5: AURORA -->
+              <article class="work__card" data-project-id="5">
+                <div class="work__card-inner">
+                  <div class="work__img-container">
+                    <img src="/src/assets/images/work/project-5.jpg" alt="Aurora Project" loading="lazy" decoding="async" />
+                    <div class="work__img-overlay"></div>
+                  </div>
+                  <div class="work__card-content">
+                    <span class="work__card-num">05</span>
+                    <span class="work__card-category">Travel / Experience</span>
+                    <h3 class="work__card-title">Aurora</h3>
+                    <p class="work__card-desc">Immersive Northern Lights forecast app offering Norwegian destination planners organic data visualizations.</p>
+                    <button class="work__card-btn" data-cursor-hover>
+                      <span>Explore</span>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </article>
+
             </div>
           </div>
         </section>
