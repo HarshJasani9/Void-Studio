@@ -49,6 +49,22 @@
   mix-blend-mode: difference;
   transform-origin: center center;
   will-change: transform, opacity;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cursor__ring-label {
+  font-family: var(--ff-mono);
+  font-size: 8px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+  white-space: nowrap;
 }
 
 /* ── Touch / coarse-pointer devices — hide both ── */

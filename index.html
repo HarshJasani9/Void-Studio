@@ -60,7 +60,9 @@
     </div>
 
     <!-- Custom cursor: dot (always white) + ring (mix-blend-mode: difference) -->
-    <div id="cursor-ring" class="cursor__ring" aria-hidden="true"></div>
+    <div id="cursor-ring" class="cursor__ring" aria-hidden="true">
+      <span class="cursor__ring-label" id="cursor-label"></span>
+    </div>
     <div id="cursor-dot"  class="cursor__dot"  aria-hidden="true"></div>
 
     <!-- Noise texture overlay -->
@@ -322,12 +324,18 @@
         </section>
 
         <section id="culture" class="culture" aria-label="Team and Culture">
+          <!-- Glowing Background Parallax Shapes -->
+          <div class="culture__shapes" aria-hidden="true">
+            <div class="culture__shape culture__shape--1" id="culture-shape-1"></div>
+            <div class="culture__shape culture__shape--2" id="culture-shape-2"></div>
+          </div>
+
           <div class="container">
             <h2 class="culture__heading section__heading" data-reveal>Team & Culture</h2>
             
             <div class="culture__grid">
               
-              <div class="culture__card culture__card--wide">
+              <div class="culture__card culture__card--wide" data-cursor-label="VIEW">
                 <div class="culture__img-wrapper">
                   <img src="/src/assets/images/culture/studio-interior.png" alt="Void Studio Workspace" class="culture__img" loading="lazy" decoding="async" />
                 </div>
@@ -337,7 +345,7 @@
                 </div>
               </div>
 
-              <div class="culture__card">
+              <div class="culture__card" data-cursor-label="VIEW">
                 <div class="culture__img-wrapper">
                   <img src="/src/assets/images/culture/desk-setup.png" alt="Minimalist Work Setup" class="culture__img" loading="lazy" decoding="async" />
                 </div>
@@ -347,7 +355,7 @@
                 </div>
               </div>
 
-              <div class="culture__card">
+              <div class="culture__card" data-cursor-label="VIEW">
                 <div class="culture__img-wrapper">
                   <img src="/src/assets/images/culture/brutalist-architecture.png" alt="Brutalist Architectural Form" class="culture__img" loading="lazy" decoding="async" />
                 </div>
@@ -358,9 +366,41 @@
               </div>
 
               <div class="culture__info-card">
+                <!-- Dot Grid Background Overlay -->
+                <div class="culture__info-grid-overlay" aria-hidden="true"></div>
+
+                <div class="culture__info-header">
+                  <span class="culture__info-title-label">MANIFESTO</span>
+                  <div class="culture__info-status">
+                    <span class="culture__info-status-dot"></span>
+                    <span class="culture__info-status-text">SYSTEM: ONLINE</span>
+                  </div>
+                </div>
+
                 <p class="culture__info-text">
                   We operate in the space between art and technology. A team committed to high-fidelity, high-performance interactive design, creating websites that are fast, fluid, and memorable.
                 </p>
+
+                <!-- Interactive Studio Vitals -->
+                <div class="culture__info-vitals">
+                  <div class="culture__vital-item">
+                    <span class="culture__vital-label">TEMPO</span>
+                    <span class="culture__vital-value" id="vital-tempo">120 BPM</span>
+                  </div>
+                  <div class="culture__vital-item">
+                    <span class="culture__vital-label">LATENCY</span>
+                    <span class="culture__vital-value" id="vital-latency">14 MS</span>
+                  </div>
+                  <div class="culture__vital-item">
+                    <span class="culture__vital-label">SYS HEALTH</span>
+                    <span class="culture__vital-value" id="vital-health">98.4%</span>
+                  </div>
+                  <div class="culture__vital-item">
+                    <span class="culture__vital-label">LOCATION</span>
+                    <span class="culture__vital-value">GMT+5:30</span>
+                  </div>
+                </div>
+
                 <div class="culture__info-footer">
                   <span class="culture__info-stat">03 / Key Pillars</span>
                   <span class="culture__info-tag">Speed — Form — Flow</span>

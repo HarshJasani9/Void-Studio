@@ -61,17 +61,40 @@ export function initCursor() {
 
   // ── Hover states via event delegation ────────────────────────────────────
   const INTERACTIVE = 'a, button, [data-cursor-hover], input, label, select';
+  const labelEl = document.getElementById('cursor-label');
 
   document.addEventListener('mouseover', (e) => {
-    if (!e.target.closest(INTERACTIVE)) return;
-    gsap.to(ring, { scale: 2.5, opacity: 0.2, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
-    gsap.to(dot,  { scale: 0,               duration: 0.2,  ease: 'power2.in',  overwrite: 'auto' });
+    const labelTarget = e.target.closest('[data-cursor-label]');
+    const interactiveTarget = e.target.closest(INTERACTIVE);
+
+    if (labelTarget) {
+      const labelText = labelTarget.getAttribute('data-cursor-label');
+      if (labelEl) {
+        labelEl.textContent = labelText;
+        gsap.to(labelEl, { opacity: 1, duration: 0.2, overwrite: 'auto' });
+      }
+      gsap.to(ring, { scale: 2.2, opacity: 1, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+      gsap.to(dot,  { scale: 0,               duration: 0.2,  ease: 'power2.in',  overwrite: 'auto' });
+    } else if (interactiveTarget) {
+      if (labelEl) {
+        gsap.to(labelEl, { opacity: 0, duration: 0.1, overwrite: 'auto' });
+      }
+      gsap.to(ring, { scale: 2.5, opacity: 0.2, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+      gsap.to(dot,  { scale: 0,               duration: 0.2,  ease: 'power2.in',  overwrite: 'auto' });
+    }
   });
 
   document.addEventListener('mouseout', (e) => {
-    if (!e.target.closest(INTERACTIVE)) return;
-    gsap.to(ring, { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
-    gsap.to(dot,  { scale: 1,             duration: 0.3, ease: 'back.out(2)', overwrite: 'auto' });
+    const labelTarget = e.target.closest('[data-cursor-label]');
+    const interactiveTarget = e.target.closest(INTERACTIVE);
+
+    if (labelTarget || interactiveTarget) {
+      if (labelEl) {
+        gsap.to(labelEl, { opacity: 0, duration: 0.2, overwrite: 'auto' });
+      }
+      gsap.to(ring, { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
+      gsap.to(dot,  { scale: 1,             duration: 0.3, ease: 'back.out(2)', overwrite: 'auto' });
+    }
   });
 
   // ── Click micro-interaction ───────────────────────────────────────────────
