@@ -54,7 +54,19 @@ export function initAbout() {
         },
       });
 
-      // ── 1. Text Reveal (blur to sharp) ────────────────────────────────────
+      // Find the eyebrow inside the section
+      const eyebrow = section.querySelector('.about__eyebrow');
+
+      // ── 1. Eyebrow Reveal ───────────────────────────────────────────
+      if (eyebrow) {
+        tl.fromTo(eyebrow,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+          0
+        );
+      }
+
+      // ── 2. Text Reveal (blur to sharp) ────────────────────────────────────
       // Lines stagger in as user scrolls
       tl.from(self.lines, {
         opacity: 0,
@@ -63,10 +75,10 @@ export function initAbout() {
         stagger: 0.1,
         duration: 1,
         ease: 'power2.out',
-      }, 0); // start at absolute 0
+      }, 0.1); // Start slightly after eyebrow
 
       // Calculate total duration of text stagger to sync shapes
-      const textDuration = 1 + (self.lines.length * 0.1);
+      const textDuration = 1.1 + (self.lines.length * 0.1);
 
       // ── 2. Parallax Shapes ────────────────────────────────────────────────
       // Shapes drift in opposite directions while the section is pinned

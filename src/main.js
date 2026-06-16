@@ -25,6 +25,7 @@ import { initMarquee, initRevealAnimations } from './js/animations.js';
 async function init() {
   // 1. Smooth scroll — Lenis starts stopped; loader unlocks it on exit
   const lenis = initLenis();
+  window.lenis = lenis;
 
   // 2. Cursor + noise — attach immediately, visible during load
   initCursor();

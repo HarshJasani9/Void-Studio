@@ -310,7 +310,7 @@
 }
 
 /* Stylings for when the image is inside detail container */
-.project-detail__img-container .work__preview-img {
+.project-detail__img-container .work__img-container {
   position: absolute;
   inset: 0;
   width: 100vw;
@@ -323,7 +323,7 @@
   top: 0 !important;
 }
 
-.project-detail__img-container .work__preview-img img {
+.project-detail__img-container .work__img-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;

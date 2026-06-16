@@ -19,41 +19,6 @@
   z-index: 2;
 }
 
-/* Background Marquee Ticker */
-.contact__marquee {
-  position: absolute;
-  top: 25%;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.025; /* Subtle background presence */
-  white-space: nowrap;
-}
-
-.contact__marquee-track {
-  display: flex;
-  white-space: nowrap;
-  width: max-content;
-  animation: contactMarquee 35s linear infinite;
-}
-
-.contact__marquee-track span {
-  display: inline-block;
-  font-family: var(--ff-display);
-  font-size: clamp(4rem, 15vw, 15rem);
-  font-weight: var(--fw-bold);
-  text-transform: uppercase;
-  letter-spacing: var(--ls-tighter);
-  color: var(--clr-text);
-  padding-right: var(--space-6);
-}
-
-@keyframes contactMarquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
 
 /* Massive Title */
 .contact__title {
