@@ -1,0 +1,180 @@
+/* ============================================================
+   GEOMETRIC & TECH ACCENTS
+   Aesthetic background grids, rotating SVG wireframes, corner
+   brackets, and dummy telemetry data overlays.
+   ============================================================ */
+
+/* 1. Global Background Grid Overlay */
+.geo-grid-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.geo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+  border-left: 1px solid rgba(255, 255, 255, 0.02);
+  border-right: 1px solid rgba(255, 255, 255, 0.02);
+  opacity: 0.8;
+}
+
+@media (min-width: 768px) {
+  .geo-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+.geo-grid__col {
+  height: 100%;
+  border-right: 1px solid rgba(255, 255, 255, 0.02);
+  position: relative;
+}
+
+.geo-grid__col:last-child {
+  border-right: none;
+}
+
+/* 2. Cyberpunk Tech Corner Brackets */
+.tech-bracket {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+  z-index: 2;
+  transition: border-color var(--duration-base) var(--ease-out);
+}
+
+.tech-bracket--top-left {
+  top: var(--space-4);
+  left: var(--space-4);
+  border-right: none;
+  border-bottom: none;
+}
+
+.tech-bracket--top-right {
+  top: var(--space-4);
+  right: var(--space-4);
+  border-left: none;
+  border-bottom: none;
+}
+
+.tech-bracket--bottom-left {
+  bottom: var(--space-4);
+  left: var(--space-4);
+  border-right: none;
+  border-top: none;
+}
+
+.tech-bracket--bottom-right {
+  bottom: var(--space-4);
+  right: var(--space-4);
+  border-left: none;
+  border-top: none;
+}
+
+/* Hover highlights brackets */
+.services__card:hover .tech-bracket,
+.culture__card:hover .tech-bracket,
+.work__card:hover .tech-bracket {
+  border-color: var(--clr-lime);
+}
+
+/* 3. Tech Telemetry Text */
+.tech-telemetry {
+  position: absolute;
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: var(--ls-wide);
+  color: var(--clr-text-subtle);
+  pointer-events: none;
+  z-index: 2;
+  text-transform: uppercase;
+}
+
+.tech-telemetry--top-right {
+  top: var(--space-6);
+  right: var(--container-pad);
+  text-align: right;
+}
+
+.tech-telemetry--bottom-left {
+  bottom: var(--space-6);
+  left: var(--container-pad);
+}
+
+/* 4. Floating Geometric SVG Wireframes */
+.geo-shape {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.04;
+  z-index: 1;
+  color: var(--clr-text);
+  will-change: transform;
+}
+
+.geo-shape svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 0.5px;
+  fill: none;
+}
+
+.geo-shape--hero {
+  top: 15%;
+  right: 8%;
+  width: clamp(200px, 30vw, 420px);
+  height: clamp(200px, 30vw, 420px);
+  animation: float-and-rotate 25s linear infinite;
+  opacity: 0.05;
+}
+
+.geo-shape--about {
+  bottom: 8%;
+  left: 4%;
+  width: clamp(150px, 20vw, 280px);
+  height: clamp(150px, 20vw, 280px);
+  animation: float-and-rotate-reverse 35s linear infinite;
+  opacity: 0.04;
+}
+
+.geo-shape--culture {
+  top: 25%;
+  right: 4%;
+  width: clamp(180px, 25vw, 320px);
+  height: clamp(180px, 25vw, 320px);
+  animation: float-and-rotate 30s linear infinite;
+  opacity: 0.045;
+}
+
+/* CSS Keyframe Animations */
+@keyframes float-and-rotate {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-25px) rotate(180deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(360deg);
+  }
+}
+
+@keyframes float-and-rotate-reverse {
+  0% {
+    transform: translateY(0px) rotate(360deg);
+  }
+  50% {
+    transform: translateY(20px) rotate(180deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
