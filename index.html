@@ -28,34 +28,20 @@
          so the hero is revealed in a split-screen wipe.
     ════════════════════════════════════════════════════ -->
     <div id="preloader" class="preloader" aria-hidden="true" aria-label="Loading">
-
-      <!-- Left curtain panel -->
-      <div class="preloader__panel preloader__panel--left"></div>
-      <!-- Right curtain panel -->
-      <div class="preloader__panel preloader__panel--right"></div>
-
-      <!-- Content — centred over both panels -->
-      <div class="preloader__content">
-
-        <!-- Logo reveal — each letter is a separate span for stagger -->
-        <div class="preloader__logo" id="preloader-logo" aria-label="VOID Studio">
-          <span class="preloader__logo-letter" data-char="V">V</span>
-          <span class="preloader__logo-letter" data-char="O">O</span>
-          <span class="preloader__logo-letter" data-char="I">I</span>
-          <span class="preloader__logo-letter" data-char="D">D</span>
-          <span class="preloader__logo-dot">.</span>
+      <div class="preloader__logo-container">
+        <!-- Background Outline/Muted text -->
+        <div class="preloader__logo preloader__logo--bg">
+          VOID<span class="accent">.</span>
         </div>
-
-        <!-- Bottom bar: counter left, progress right -->
-        <div class="preloader__bar">
-          <span class="preloader__label">Loading</span>
-          <div class="preloader__progress">
-            <div class="preloader__progress-fill" id="preloader-fill"></div>
-          </div>
-          <span class="preloader__counter" id="preloader-counter">0</span>
-          <span class="preloader__counter-suffix">%</span>
+        <!-- Foreground Filled text -->
+        <div class="preloader__logo preloader__logo--fg" id="preloader-logo-fg">
+          VOID<span class="accent">.</span>
         </div>
+      </div>
 
+      <!-- Counter -->
+      <div class="preloader__counter-wrap">
+        <span class="preloader__counter" id="preloader-counter">000</span>
       </div>
     </div>
 
@@ -95,8 +81,8 @@
       ════════════════════════════════════════════════════ -->
       <section id="hero" class="hero" aria-label="Hero">
         <!-- Background Video & Overlay -->
-        <video id="hero-video" class="hero__video" loop muted playsinline poster="/hero-video-poster.png" aria-hidden="true">
-          <source data-src="/hero-video.mp4" type="video/mp4">
+        <video id="hero-video" class="hero__video" autoplay loop muted playsinline aria-hidden="true">
+          <source src="/hero-video.mp4" type="video/mp4">
         </video>
         <div class="hero__video-overlay" aria-hidden="true"></div>
 
@@ -326,58 +312,102 @@
               </div>
             </div>
             
-            <div class="services__list">
-              <div class="services__item" data-service-id="1">
-                <div class="services__item-inner">
-                  <span class="services__item-index">01</span>
-                  <h3 class="services__item-title">Branding & Identity</h3>
-                  <p class="services__item-desc">Creative strategy, visual identity, design systems, guidelines, and positioning.</p>
+            <div class="services__cards">
+              <!-- Service Card 1 -->
+              <div class="services__card" data-service-id="1" data-cursor-label="EXPLORE">
+                <div class="services__card-inner">
+                  <div class="services__card-content">
+                    <div class="services__card-header">
+                      <span class="services__card-index">01</span>
+                      <h3 class="services__card-title">Branding & Identity</h3>
+                    </div>
+                    <p class="services__card-desc">We build bold, cohesive brand languages that command attention. Our strategy-led design systems ensure your brand operates fluidly across all digital and physical touchpoints.</p>
+                    <ul class="services__card-tags">
+                      <li class="services__card-tag">Brand Strategy</li>
+                      <li class="services__card-tag">Visual Identity</li>
+                      <li class="services__card-tag">Design Systems</li>
+                      <li class="services__card-tag">Brand Guidelines</li>
+                      <li class="services__card-tag">Collateral</li>
+                    </ul>
+                  </div>
+                  <div class="services__card-visual">
+                    <img src="/service-1.png" alt="Branding & Identity Visual" loading="lazy" decoding="async" />
+                    <div class="services__card-visual-overlay"></div>
+                  </div>
                 </div>
-                <div class="services__item-underline" aria-hidden="true"></div>
               </div>
 
-              <div class="services__item" data-service-id="2">
-                <div class="services__item-inner">
-                  <span class="services__item-index">02</span>
-                  <h3 class="services__item-title">Web Design & UX</h3>
-                  <p class="services__item-desc">Responsive layouts, digital products, high-fidelity wireframing, UX logic, and UI design.</p>
+              <!-- Service Card 2 -->
+              <div class="services__card" data-service-id="2" data-cursor-label="EXPLORE">
+                <div class="services__card-inner">
+                  <div class="services__card-content">
+                    <div class="services__card-header">
+                      <span class="services__card-index">02</span>
+                      <h3 class="services__card-title">Web Design & UX</h3>
+                    </div>
+                    <p class="services__card-desc">We craft digital interfaces that balance raw artistic expression with seamless usability. From wireframes to high-fidelity layouts, we prototype design solutions designed to be felt.</p>
+                    <ul class="services__card-tags">
+                      <li class="services__card-tag">UI/UX Design</li>
+                      <li class="services__card-tag">Art Direction</li>
+                      <li class="services__card-tag">Prototyping</li>
+                      <li class="services__card-tag">User Journeys</li>
+                      <li class="services__card-tag">E-Commerce</li>
+                    </ul>
+                  </div>
+                  <div class="services__card-visual">
+                    <img src="/service-2.png" alt="Web Design & UX Visual" loading="lazy" decoding="async" />
+                    <div class="services__card-visual-overlay"></div>
+                  </div>
                 </div>
-                <div class="services__item-underline" aria-hidden="true"></div>
               </div>
 
-              <div class="services__item" data-service-id="3">
-                <div class="services__item-inner">
-                  <span class="services__item-index">03</span>
-                  <h3 class="services__item-title">Creative Development</h3>
-                  <p class="services__item-desc">Custom frontend architectures, micro-interactions, WebGL/3D, and fluid animations.</p>
+              <!-- Service Card 3 -->
+              <div class="services__card" data-service-id="3" data-cursor-label="EXPLORE">
+                <div class="services__card-inner">
+                  <div class="services__card-content">
+                    <div class="services__card-header">
+                      <span class="services__card-index">03</span>
+                      <h3 class="services__card-title">Creative Development</h3>
+                    </div>
+                    <p class="services__card-desc">We push the limits of modern web technologies. We engineer bespoke frontend architectures featuring fluid motion, high-performance interactions, and 3D WebGL experiences.</p>
+                    <ul class="services__card-tags">
+                      <li class="services__card-tag">Creative Frontend</li>
+                      <li class="services__card-tag">WebGL / Three.js</li>
+                      <li class="services__card-tag">GSAP Animations</li>
+                      <li class="services__card-tag">Next.js / React</li>
+                      <li class="services__card-tag">Shader Programming</li>
+                    </ul>
+                  </div>
+                  <div class="services__card-visual">
+                    <img src="/service-3.png" alt="Creative Development Visual" loading="lazy" decoding="async" />
+                    <div class="services__card-visual-overlay"></div>
+                  </div>
                 </div>
-                <div class="services__item-underline" aria-hidden="true"></div>
               </div>
 
-              <div class="services__item" data-service-id="4">
-                <div class="services__item-inner">
-                  <span class="services__item-index">04</span>
-                  <h3 class="services__item-title">Motion & Interactive</h3>
-                  <p class="services__item-desc">Interface motion design, 3D product renders, video editing, and fluid transitions.</p>
+              <!-- Service Card 4 -->
+              <div class="services__card" data-service-id="4" data-cursor-label="EXPLORE">
+                <div class="services__card-inner">
+                  <div class="services__card-content">
+                    <div class="services__card-header">
+                      <span class="services__card-index">04</span>
+                      <h3 class="services__card-title">Motion & Interactive</h3>
+                    </div>
+                    <p class="services__card-desc">We introduce motion as a tool for digital storytelling. Our work blends user-interface physics, 3D product renders, video editing, and reactive elements to create cinematic flow.</p>
+                    <ul class="services__card-tags">
+                      <li class="services__card-tag">Motion Design</li>
+                      <li class="services__card-tag">3D Product Renders</li>
+                      <li class="services__card-tag">Interaction Physics</li>
+                      <li class="services__card-tag">Video Production</li>
+                      <li class="services__card-tag">Audio Integration</li>
+                    </ul>
+                  </div>
+                  <div class="services__card-visual">
+                    <img src="/service-4.png" alt="Motion & Interactive Visual" loading="lazy" decoding="async" />
+                    <div class="services__card-visual-overlay"></div>
+                  </div>
                 </div>
-                <div class="services__item-underline" aria-hidden="true"></div>
               </div>
-            </div>
-          </div>
-
-          <!-- Cursor-following hover previews (similar to selected work) -->
-          <div class="services__previews" id="services-previews" aria-hidden="true">
-            <div class="services__preview-img" data-service-img="1">
-              <img src="/service-1.png" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="services__preview-img" data-service-img="2">
-              <img src="/service-2.png" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="services__preview-img" data-service-img="3">
-              <img src="/service-3.png" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="services__preview-img" data-service-img="4">
-              <img src="/service-4.png" alt="" loading="lazy" decoding="async" />
             </div>
           </div>
         </section>

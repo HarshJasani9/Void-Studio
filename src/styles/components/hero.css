@@ -17,12 +17,6 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  
-  /* Poster fallback for mobile / prefers-reduced-motion / first paint */
-  background-image: url('/hero-video-poster.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 /* ── Background Video & Overlay ── */

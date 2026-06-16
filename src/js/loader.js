@@ -36,13 +36,8 @@ export function initLoader(lenis) {
     const preloader = document.getElementById('preloader');
     if (!preloader) { resolve(); return; }
 
-    // ── Elements ─────────────────────────────────────────────────────────
-    const letters  = preloader.querySelectorAll('.preloader__logo-letter, .preloader__logo-dot');
-    const bar      = preloader.querySelector('.preloader__bar');
-    const fill     = document.getElementById('preloader-fill');
+    const fillLogo = document.getElementById('preloader-logo-fg');
     const counter  = document.getElementById('preloader-counter');
-    const panelL   = preloader.querySelector('.preloader__panel--left');
-    const panelR   = preloader.querySelector('.preloader__panel--right');
 
     // ── Reduced motion check ──────────────────────────────────────────────────
     const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -61,7 +56,12 @@ export function initLoader(lenis) {
 
     // ── Preloader state tracking ──────────────────────────────────────────
     let isLoaded = false;
-    const handleLoad = () => { isLoaded = true; };
+    const handleLoad = () => {
+      isLoaded = true;
+      if (animationFinished) {
+        triggerExit();
+      }
+    };
     window.addEventListener('load', handleLoad);
     if (document.readyState === 'complete') {
       isLoaded = true;
@@ -69,21 +69,11 @@ export function initLoader(lenis) {
 
     // ── Proxy object for the counter ───────────────────────────────────────
     const progress = { val: 0 };
+    let animationFinished = false;
 
-    // ── Intro Timeline (Bar fade-in) ───────────────────────────────────────
-    const introTl = gsap.timeline({
-      defaults: { ease: 'power3.out' }
-    });
-
-    introTl.to(bar, {
-      autoAlpha: 1,
-      duration: 0.5,
-    });
-
-    // ── Outro Timeline (Exit panels sweep) ──────────────────────────────────
+    // ── Outro curtain wipe ──────────────────────────────────────────────
     const outroTl = gsap.timeline({
       paused: true,
-      defaults: { ease: 'power3.out' },
       onComplete: () => {
         window.removeEventListener('load', handleLoad);
         preloader.style.display = 'none';
@@ -94,71 +84,36 @@ export function initLoader(lenis) {
       },
     });
 
-    outroTl.to(bar, {
-      autoAlpha: 0,
-      y: -16,
-      duration: 0.35,
-    }, 0);
-
-    outroTl.to(letters, {
-      autoAlpha: 0,
-      y: -20,
-      duration: 0.4,
-      stagger: { each: 0.04, from: 'end' },
-    }, 0.05);
-
-    outroTl.to(panelL, {
+    outroTl.to(preloader, {
       yPercent: -100,
-      duration: 1.0,
+      duration: 1.2,
       ease: 'power4.inOut',
-    }, 0.3);
-
-    outroTl.to(panelR, {
-      yPercent: -100,
-      duration: 1.0,
-      ease: 'power4.inOut',
-    }, 0.45);
-
-    // ── Progress Loop (0 to 90 initial, then 90 to 100 on load) ────────────
-    const progressTween = gsap.to(progress, {
-      val: 90,
-      duration: 1.5,
-      ease: 'power1.out',
-      onUpdate() {
-        const v = Math.round(progress.val);
-        counter.textContent = v;
-        gsap.set(fill, { scaleX: v / 100 });
-      },
-      onComplete() {
-        if (isLoaded) {
-          finishProgress();
-        }
-      }
     });
 
-    function finishProgress() {
-      gsap.to(progress, {
-        val: 100,
-        duration: 0.4,
-        ease: 'power2.out',
-        onUpdate() {
-          const v = Math.round(progress.val);
-          counter.textContent = v;
-          gsap.set(fill, { scaleX: v / 100 });
-        },
-        onComplete() {
-          outroTl.play();
-        }
+    function triggerExit() {
+      // Pause slightly on 100% then slide up the curtain
+      gsap.delayedCall(0.3, () => {
+        outroTl.play();
       });
     }
 
-    const checkInterval = setInterval(() => {
-      if (isLoaded) {
-        clearInterval(checkInterval);
-        progressTween.kill();
-        finishProgress();
+    // ── Progress Loop (smooth 4.0 seconds counter from 0 to 100) ──────────
+    gsap.to(progress, {
+      val: 100,
+      duration: 4.0,
+      ease: 'power2.out',
+      onUpdate() {
+        const v = Math.round(progress.val);
+        if (counter) counter.textContent = String(v).padStart(3, '0');
+        if (fillLogo) gsap.set(fillLogo, { clipPath: `inset(${100 - v}% 0 0 0)` });
+      },
+      onComplete() {
+        animationFinished = true;
+        if (isLoaded) {
+          triggerExit();
+        }
       }
-    }, 50);
+    });
 
   });
 }
