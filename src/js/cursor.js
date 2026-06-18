@@ -73,13 +73,29 @@ export function initCursor() {
         labelEl.textContent = labelText;
         gsap.to(labelEl, { opacity: 1, duration: 0.2, overwrite: 'auto' });
       }
-      gsap.to(ring, { scale: 2.2, opacity: 1, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+      gsap.to(ring, { 
+        backgroundColor: '#ffffff', 
+        borderColor: 'transparent', 
+        scale: 2.2, 
+        opacity: 1, 
+        duration: 0.35, 
+        ease: 'power2.out', 
+        overwrite: 'auto' 
+      });
       gsap.to(dot,  { scale: 0,               duration: 0.2,  ease: 'power2.in',  overwrite: 'auto' });
     } else if (interactiveTarget) {
       if (labelEl) {
         gsap.to(labelEl, { opacity: 0, duration: 0.1, overwrite: 'auto' });
       }
-      gsap.to(ring, { scale: 2.5, opacity: 0.2, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+      gsap.to(ring, { 
+        backgroundColor: 'transparent', 
+        borderColor: 'rgba(255, 255, 255, 0.4)', 
+        scale: 2.5, 
+        opacity: 1, 
+        duration: 0.35, 
+        ease: 'power2.out', 
+        overwrite: 'auto' 
+      });
       gsap.to(dot,  { scale: 0,               duration: 0.2,  ease: 'power2.in',  overwrite: 'auto' });
     }
   });
@@ -92,7 +108,15 @@ export function initCursor() {
       if (labelEl) {
         gsap.to(labelEl, { opacity: 0, duration: 0.2, overwrite: 'auto' });
       }
-      gsap.to(ring, { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
+      gsap.to(ring, { 
+        backgroundColor: 'transparent', 
+        borderColor: '#ffffff', 
+        scale: 1, 
+        opacity: 1, 
+        duration: 0.4, 
+        ease: 'power3.out', 
+        overwrite: 'auto' 
+      });
       gsap.to(dot,  { scale: 1,             duration: 0.3, ease: 'back.out(2)', overwrite: 'auto' });
     }
   });
@@ -102,8 +126,40 @@ export function initCursor() {
     gsap.to(ring, { scale: 0.75, duration: 0.1, ease: 'power3.in',  overwrite: 'auto' });
     gsap.to(dot,  { scale: 1.8,  duration: 0.1, ease: 'power3.in',  overwrite: 'auto' });
   });
-  document.addEventListener('mouseup', () => {
-    gsap.to(ring, { scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.4)', overwrite: 'auto' });
-    gsap.to(dot,  { scale: 1, duration: 0.3, ease: 'back.out(2)',          overwrite: 'auto' });
+  document.addEventListener('mouseup', (e) => {
+    const labelTarget = e.target.closest('[data-cursor-label]');
+    const interactiveTarget = e.target.closest(INTERACTIVE);
+    
+    if (labelTarget) {
+      gsap.to(ring, { 
+        backgroundColor: '#ffffff', 
+        borderColor: 'transparent', 
+        scale: 2.2, 
+        duration: 0.4, 
+        ease: 'power3.out', 
+        overwrite: 'auto' 
+      });
+      gsap.to(dot,  { scale: 0, duration: 0.3, ease: 'power2.in', overwrite: 'auto' });
+    } else if (interactiveTarget) {
+      gsap.to(ring, { 
+        backgroundColor: 'transparent', 
+        borderColor: 'rgba(255, 255, 255, 0.4)', 
+        scale: 2.5, 
+        duration: 0.4, 
+        ease: 'power3.out', 
+        overwrite: 'auto' 
+      });
+      gsap.to(dot,  { scale: 0, duration: 0.3, ease: 'power2.in', overwrite: 'auto' });
+    } else {
+      gsap.to(ring, { 
+        backgroundColor: 'transparent', 
+        borderColor: '#ffffff', 
+        scale: 1, 
+        duration: 0.5, 
+        ease: 'elastic.out(1, 0.4)', 
+        overwrite: 'auto' 
+      });
+      gsap.to(dot,  { scale: 1, duration: 0.3, ease: 'back.out(2)',          overwrite: 'auto' });
+    }
   });
 }

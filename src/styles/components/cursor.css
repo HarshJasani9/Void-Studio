@@ -22,7 +22,7 @@
   visibility: hidden;
 }
 
-/* ── Dot — snaps to pointer, always visible white ── */
+/* ── Dot — snaps to pointer, adapts color based on background ── */
 .cursor__dot {
   width: 8px;
   height: 8px;
@@ -32,6 +32,7 @@
   margin-left: -4px;
   /* Above ring */
   z-index: calc(var(--z-cursor) + 1);
+  mix-blend-mode: difference;
   will-change: transform, opacity;
 }
 
@@ -48,7 +49,7 @@
   /* Invert whatever colour is underneath */
   mix-blend-mode: difference;
   transform-origin: center center;
-  will-change: transform, opacity;
+  will-change: transform, opacity, background-color, border-color;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,6 +64,7 @@
   color: #fff;
   opacity: 0;
   pointer-events: none;
+  mix-blend-mode: difference;
   will-change: opacity;
   white-space: nowrap;
 }
