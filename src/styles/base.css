@@ -13,8 +13,17 @@ body {
   font-size: var(--fs-base);
   font-weight: var(--fw-regular);
   line-height: var(--lh-normal);
+  letter-spacing: -0.012em;
   color: var(--clr-text);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  background-color: var(--clr-bg);
+  position: relative;
+  width: 100%;
 }
 
 /* -------- Selection -------- */

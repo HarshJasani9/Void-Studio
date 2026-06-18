@@ -185,11 +185,15 @@
 .work__card-desc {
   font-family: var(--ff-body);
   font-size: var(--fs-sm);
+  font-weight: var(--fw-light);
   color: var(--clr-text-muted);
-  line-height: var(--lh-relaxed);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
   max-width: 42ch;
-  opacity: 0.8;
   margin-bottom: var(--space-2);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: color var(--duration-base) var(--ease-out);
 }
 
 .work__card-btn {
@@ -225,6 +229,10 @@
 
   .work__card:hover .work__img-overlay {
     opacity: 0.6;
+  }
+
+  .work__card:hover .work__card-desc {
+    color: var(--clr-text);
   }
 
   .work__card:hover .work__card-btn {
@@ -419,9 +427,18 @@
 .project-detail__desc {
   font-family: var(--ff-body);
   font-size: var(--fs-md);
-  line-height: var(--lh-relaxed);
+  font-weight: var(--fw-light);
+  line-height: 1.7;
+  letter-spacing: -0.01em;
   color: var(--clr-text-muted);
   max-width: 50ch;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.project-detail__desc:hover {
+  color: var(--clr-text);
 }
 
 /* SplitText settings for title reveal */

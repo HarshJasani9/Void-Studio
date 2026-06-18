@@ -98,8 +98,13 @@
 .services__card-desc {
   font-family: var(--ff-body);
   font-size: var(--fs-base);
+  font-weight: var(--fw-light);
   color: var(--clr-text-muted);
-  line-height: var(--lh-normal);
+  line-height: 1.65;
+  letter-spacing: -0.015em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: color var(--duration-base) var(--ease-out);
 }
 
 .services__card-tags {
@@ -146,6 +151,10 @@
 /* Card hover glows & visual scaling */
 .services__card:hover {
   transform: translateY(-4px);
+}
+
+.services__card:hover .services__card-desc {
+  color: var(--clr-text);
 }
 
 .services__card[data-service-id="1"]:hover {

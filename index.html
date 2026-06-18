@@ -12,11 +12,11 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Fonts — Inter + Outfit -->
+    <!-- Fonts — Plus Jakarta Sans + Outfit + JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -159,9 +159,9 @@
            ABOUT / MANIFESTO (Pinned + Scrub Reveal)
       ════════════════════════════════════════════════════ -->
       <section id="about" class="about" aria-labelledby="about-title">
-        <!-- Geometric background grid -->
 
-        <!-- Floating geometric shape -->
+        <!-- Ghost wordmark — large outlined text behind content -->
+        <div class="about__ghost" aria-hidden="true">VOID<span>.</span></div>
 
         <!-- Parallax background shapes -->
         <div class="about__shapes" aria-hidden="true">
@@ -174,11 +174,35 @@
           
           <div class="about__content">
             <p class="about__eyebrow">The Manifesto</p>
-            <p class="about__manifesto" id="about-manifesto">
-             We don't do ordinary. We build experiences that move — interfaces with weight, motion with meaning. Every detail is deliberate. Every scroll, every hover, every transition is designed to be felt, not just seen. This isn't a website. It's a statement.      </p>
+            <p class="about__manifesto" id="about-manifesto"><span class="about__line about__line--bold">We don't do ordinary.</span> <span class="about__line about__line--body">We build experiences that move — interfaces with weight, motion with meaning.</span> <span class="about__line about__line--bold">Every detail is deliberate.</span> <span class="about__line about__line--body">Every scroll, every hover, every transition is designed to be felt, not just seen.</span> <span class="about__line about__line--kicker">This isn't a website. It's a statement.</span></p>
           </div>
         </div>
+
+        <!-- Stats strip — anchored to bottom of pinned section -->
+        <div class="about__stats" id="about-stats" aria-label="Studio stats">
+          <div class="about__stat">
+            <span class="about__stat-num">08<sup>+</sup></span>
+            <span class="about__stat-label">Years crafting</span>
+          </div>
+          <div class="about__stat-divider" aria-hidden="true"></div>
+          <div class="about__stat">
+            <span class="about__stat-num">50<sup>+</sup></span>
+            <span class="about__stat-label">Projects shipped</span>
+          </div>
+          <div class="about__stat-divider" aria-hidden="true"></div>
+          <div class="about__stat">
+            <span class="about__stat-num">04</span>
+            <span class="about__stat-label">Core disciplines</span>
+          </div>
+          <div class="about__stat-divider" aria-hidden="true"></div>
+          <div class="about__stat">
+            <span class="about__stat-num">∞</span>
+            <span class="about__stat-label">Iterations</span>
+          </div>
+        </div>
+
       </section>
+
 
       <!-- Main content placeholder sections (to be built out later) -->
       <main id="main">
@@ -328,7 +352,7 @@
             
             <div class="services__cards">
               <!-- Service Card 1 -->
-              <div class="services__card" data-service-id="1" data-cursor-label="EXPLORE">
+              <div class="services__card" data-service-id="1">
                 <!-- Corner Brackets -->
                 <div class="services__card-inner">
                   <div class="services__card-content">
@@ -353,7 +377,7 @@
               </div>
 
               <!-- Service Card 2 -->
-              <div class="services__card" data-service-id="2" data-cursor-label="EXPLORE">
+              <div class="services__card" data-service-id="2">
                 <!-- Corner Brackets -->
                 <div class="services__card-inner">
                   <div class="services__card-content">
@@ -378,7 +402,7 @@
               </div>
 
               <!-- Service Card 3 -->
-              <div class="services__card" data-service-id="3" data-cursor-label="EXPLORE">
+              <div class="services__card" data-service-id="3">
                 <!-- Corner Brackets -->
                 <div class="services__card-inner">
                   <div class="services__card-content">
@@ -403,7 +427,7 @@
               </div>
 
               <!-- Service Card 4 -->
-              <div class="services__card" data-service-id="4" data-cursor-label="EXPLORE">
+              <div class="services__card" data-service-id="4">
                 <!-- Corner Brackets -->
                 <div class="services__card-inner">
                   <div class="services__card-content">
@@ -446,7 +470,7 @@
             
             <div class="culture__grid">
               
-              <div class="culture__card culture__card--wide" data-cursor-label="VIEW">
+              <div class="culture__card culture__card--wide">
                 <!-- Corner Brackets -->
                 <div class="culture__img-wrapper">
                   <img src="/src/assets/images/culture/studio-interior.png" alt="Void Studio Workspace" class="culture__img" loading="lazy" decoding="async" />
@@ -457,7 +481,7 @@
                 </div>
               </div>
 
-              <div class="culture__card" data-cursor-label="VIEW">
+              <div class="culture__card">
                 <!-- Corner Brackets -->
                 <div class="culture__img-wrapper">
                   <img src="/src/assets/images/culture/desk-setup.png" alt="Minimalist Work Setup" class="culture__img" loading="lazy" decoding="async" />
@@ -468,7 +492,7 @@
                 </div>
               </div>
 
-              <div class="culture__card" data-cursor-label="VIEW">
+              <div class="culture__card">
                 <!-- Corner Brackets -->
                 <div class="culture__img-wrapper">
                   <img src="/src/assets/images/culture/brutalist-architecture.png" alt="Brutalist Architectural Form" class="culture__img" loading="lazy" decoding="async" />

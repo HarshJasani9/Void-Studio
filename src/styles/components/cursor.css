@@ -61,10 +61,9 @@
   font-weight: var(--fw-bold);
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #fff;
+  color: #000;
   opacity: 0;
   pointer-events: none;
-  mix-blend-mode: difference;
   will-change: opacity;
   white-space: nowrap;
 }
