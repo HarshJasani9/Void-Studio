@@ -7,6 +7,12 @@
 import './styles/main.css';
 import 'lenis/dist/lenis.css';
 
+/* Force scroll restoration to manual and scroll to top on refresh */
+if (history.scrollRestoration) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 /* Modules */
 import { initLenis }   from './js/lenis-setup.js';
 import { initLoader }  from './js/loader.js';
