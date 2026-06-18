@@ -54,6 +54,9 @@ export function initLenis() {
     infinite: false,
   });
 
+  // Force scroll position to top immediately on initialization
+  lenis.scrollTo(0, { immediate: true });
+
   // ── 2. Tell ScrollTrigger to read scroll position from Lenis ─────────────
   //
   // scrollTop(value) acts as getter (no arg) and setter (with arg).

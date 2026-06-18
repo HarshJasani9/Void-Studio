@@ -74,12 +74,36 @@ export function initLoader(lenis) {
     // ── Outro curtain wipe ──────────────────────────────────────────────
     const outroTl = gsap.timeline({
       paused: true,
+      onStart: () => {
+        window.scrollTo(0, 0);
+        if (lenis) {
+          lenis.scrollTo(0, { immediate: true });
+        }
+      },
       onComplete: () => {
         window.removeEventListener('load', handleLoad);
         preloader.style.display = 'none';
+
+        window.scrollTo(0, 0);
+        if (lenis) {
+          lenis.scrollTo(0, { immediate: true });
+        }
+
         document.body.classList.remove('is-loading');
         document.body.classList.add('is-loaded');
-        if (lenis) lenis.start();
+
+        if (lenis) {
+          lenis.start();
+        }
+
+        // Keep scroll at 0 on next frame in case of layout changes
+        requestAnimationFrame(() => {
+          window.scrollTo(0, 0);
+          if (lenis) {
+            lenis.scrollTo(0, { immediate: true });
+          }
+        });
+
         resolve();
       },
     });
