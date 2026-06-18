@@ -19,14 +19,13 @@
   overflow: hidden;
 }
 
-/* ── Background Video & Overlay ── */
-.hero__video {
+/* ── Background Canvas & Overlay ── */
+.hero__canvas {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
   z-index: 1;
   pointer-events: none;
 }
@@ -190,13 +189,13 @@
     bottom: var(--space-6);
   }
 
-  .hero__video {
+  .hero__canvas {
     display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__video {
+  .hero__canvas {
     display: none;
   }
 }

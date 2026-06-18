@@ -26,6 +26,7 @@ import { initServices } from './js/services.js';
 import { initCulture } from './js/culture.js';
 import { initContact } from './js/contact.js';
 import { initMarquee, initRevealAnimations } from './js/animations.js';
+import { initWebGL } from './js/webgl.js';
 
 /* ── Boot ─────────────────────────────────────────────────────────────────── */
 async function init() {
@@ -33,9 +34,10 @@ async function init() {
   const lenis = initLenis();
   window.lenis = lenis;
 
-  // 2. Cursor + noise — attach immediately, visible during load
+  // 2. Cursor + noise + webgl — attach immediately, visible during load
   initCursor();
   initNoise();
+  initWebGL();
 
   // 3. Preloader — await full exit before firing hero animations
   await initLoader(lenis);
