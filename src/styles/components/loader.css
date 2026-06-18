@@ -42,7 +42,7 @@
 
 .preloader__logo {
   font-family: var(--ff-display);
-  font-size: clamp(5rem, 16vw, 13rem);
+  font-size: clamp(3rem, 14vw, 13rem);
   font-weight: var(--fw-black);
   letter-spacing: -0.04em;
   text-transform: uppercase;

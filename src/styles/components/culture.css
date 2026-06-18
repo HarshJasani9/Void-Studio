@@ -87,6 +87,14 @@
   line-height: var(--lh-tight);
 }
 
+.culture__card-desc {
+  font-family: var(--ff-body);
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+  line-height: var(--lh-base);
+  margin-top: auto; /* Push to bottom if needed, or let flex gap handle it */
+}
+
 /* ── Background Parallax Shapes ── */
 .culture__shapes {
   position: absolute;
