@@ -60,7 +60,7 @@ export function initCursor() {
   }
 
   // ── Hover states via event delegation ────────────────────────────────────
-  const INTERACTIVE = 'a, button, [data-cursor-hover], input, label, select';
+  const INTERACTIVE = 'a, button, [data-cursor-hover], input, label, select, p, h1, h2, h3, h4, h5, h6, li, span';
   const labelEl = document.getElementById('cursor-label');
 
   document.addEventListener('mouseover', (e) => {
@@ -88,9 +88,9 @@ export function initCursor() {
         gsap.to(labelEl, { opacity: 0, duration: 0.1, overwrite: 'auto' });
       }
       gsap.to(ring, { 
-        backgroundColor: 'transparent', 
-        borderColor: 'rgba(255, 255, 255, 0.4)', 
-        scale: 2.5, 
+        backgroundColor: '#ffffff', 
+        borderColor: 'transparent', 
+        scale: 1, 
         opacity: 1, 
         duration: 0.35, 
         ease: 'power2.out', 
@@ -101,10 +101,12 @@ export function initCursor() {
   });
 
   document.addEventListener('mouseout', (e) => {
-    const labelTarget = e.target.closest('[data-cursor-label]');
-    const interactiveTarget = e.target.closest(INTERACTIVE);
+    // Check if the element we are moving into is also interactive
+    const toLabel = e.relatedTarget ? e.relatedTarget.closest('[data-cursor-label]') : null;
+    const toInteractive = e.relatedTarget ? e.relatedTarget.closest(INTERACTIVE) : null;
 
-    if (labelTarget || interactiveTarget) {
+    // Only reset the cursor to normal if we are moving completely out of interactive elements
+    if (!toLabel && !toInteractive) {
       if (labelEl) {
         gsap.to(labelEl, { opacity: 0, duration: 0.2, overwrite: 'auto' });
       }
@@ -142,9 +144,9 @@ export function initCursor() {
       gsap.to(dot,  { scale: 0, duration: 0.3, ease: 'power2.in', overwrite: 'auto' });
     } else if (interactiveTarget) {
       gsap.to(ring, { 
-        backgroundColor: 'transparent', 
-        borderColor: 'rgba(255, 255, 255, 0.4)', 
-        scale: 2.5, 
+        backgroundColor: '#ffffff', 
+        borderColor: 'transparent', 
+        scale: 1, 
         duration: 0.4, 
         ease: 'power3.out', 
         overwrite: 'auto' 

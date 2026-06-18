@@ -2,14 +2,18 @@
    BASE — Global element styles, utilities
    ============================================================ */
 
-/* -------- Body -------- */
+/* -------- Html & Body -------- */
+html,
+body {
+  background-color: var(--clr-bg);
+}
+
 body {
   font-family: var(--ff-body);
   font-size: var(--fs-base);
   font-weight: var(--fw-regular);
   line-height: var(--lh-normal);
   color: var(--clr-text);
-  background-color: var(--clr-bg);
   overflow-x: hidden;
 }
 

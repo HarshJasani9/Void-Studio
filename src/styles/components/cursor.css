@@ -31,7 +31,7 @@
   margin-top: -4px;
   margin-left: -4px;
   /* Above ring */
-  z-index: calc(var(--z-cursor) + 1);
+  z-index: 1000000;
   mix-blend-mode: difference;
   will-change: transform, opacity;
 }
@@ -45,7 +45,7 @@
   /* Centre ring on hotspot */
   margin-top: -20px;
   margin-left: -20px;
-  z-index: var(--z-cursor);
+  z-index: 999999;
   /* Invert whatever colour is underneath */
   mix-blend-mode: difference;
   transform-origin: center center;
