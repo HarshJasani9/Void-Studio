@@ -1,4 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#0a0a0a"/>
-  <text x="16" y="22" font-family="system-ui" font-size="16" font-weight="900" fill="#7c3aed" text-anchor="middle">V</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="20" fill="#0a0a0a"/>
+  
+  <!-- Left Wing (Violet) -->
+  <polygon points="20,25 42,25 62,75 40,75" fill="#7c3aed" />
+  
+  <!-- Right Wing (White) -->
+  <polygon points="80,25 58,25 30,60 52,60" fill="#ededed" />
+  
+  <!-- Accent Dot (Lime) -->
+  <circle cx="68" cy="70" r="7" fill="#c8ff00" />
 </svg>

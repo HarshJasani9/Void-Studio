@@ -31,11 +31,19 @@
       <div class="preloader__logo-container">
         <!-- Background Outline/Muted text -->
         <div class="preloader__logo preloader__logo--bg">
-          VOID<span class="accent">.</span>
+          <svg class="brand-logomark" viewBox="0 0 100 100" aria-hidden="true">
+            <polygon points="20,25 42,25 62,75 40,75" fill="rgba(255,255,255,0.05)" />
+            <polygon points="80,25 58,25 30,60 52,60" fill="rgba(255,255,255,0.05)" />
+            <circle cx="68" cy="70" r="7" fill="rgba(255,255,255,0.05)" />
+          </svg>VOID<span class="accent">.</span>
         </div>
         <!-- Foreground Filled text -->
         <div class="preloader__logo preloader__logo--fg" id="preloader-logo-fg">
-          VOID<span class="accent">.</span>
+          <svg class="brand-logomark" viewBox="0 0 100 100" aria-hidden="true">
+            <polygon points="20,25 42,25 62,75 40,75" fill="var(--clr-accent)" />
+            <polygon points="80,25 58,25 30,60 52,60" fill="currentColor" />
+            <circle cx="68" cy="70" r="7" fill="var(--clr-lime)" />
+          </svg>VOID<span class="accent">.</span>
         </div>
       </div>
 
@@ -55,7 +63,14 @@
       <!-- Navigation -->
       <header id="header" class="header">
         <nav class="nav container grid">
-          <a href="/" class="nav__logo" id="nav-logo">VOID<span class="accent">.</span></a>
+          <a href="/" class="nav__logo" id="nav-logo">
+            <svg class="brand-logomark" viewBox="0 0 100 100" aria-hidden="true">
+              <polygon points="20,25 42,25 62,75 40,75" fill="var(--clr-accent)" />
+              <polygon points="80,25 58,25 30,60 52,60" fill="currentColor" />
+              <circle cx="68" cy="70" r="7" fill="var(--clr-lime)" />
+            </svg>
+            VOID<span class="accent">.</span>
+          </a>
           <ul class="nav__links" id="nav-links">
             <li><a href="#about" class="nav__link">About</a></li>
             <li><a href="#work" class="nav__link">Work</a></li>

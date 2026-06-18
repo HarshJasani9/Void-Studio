@@ -48,6 +48,10 @@
   text-transform: uppercase;
   line-height: 1;
   user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 0.15em;
+  justify-content: center;
 }
 
 .preloader__logo--bg {
