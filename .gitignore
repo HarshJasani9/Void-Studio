@@ -26,3 +26,7 @@ image.md
 *.njsproj
 *.sln
 *.sw?
+
+# Project context document
+project_context.md
+
