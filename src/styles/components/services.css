@@ -1,6 +1,7 @@
 /* ============================================================
    SERVICES SECTION
    Overlapping Sticky Card Stack Animation
+   Bold editorial split-panel design with accent strips.
    ============================================================ */
 
 .services {
@@ -41,51 +42,76 @@
   position: relative;
 }
 
+/* ── Card Base ── */
 .services__card {
+  --_accent: var(--clr-accent);
   position: relative;
   width: 100%;
   border-radius: var(--radius-2xl);
-  border: 1px solid var(--clr-border);
   background-color: var(--clr-bg-elevated);
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-  transition: border-color var(--duration-base) var(--ease-out),
-              box-shadow var(--duration-base) var(--ease-out),
-              transform var(--duration-base) var(--ease-out);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  transition: box-shadow 0.5s var(--ease-out),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
+/* Per-card accent color tokens */
+.services__card[data-service-id="1"] { --_accent: var(--clr-accent); }
+.services__card[data-service-id="2"] { --_accent: var(--clr-secondary); }
+.services__card[data-service-id="3"] { --_accent: var(--clr-lime); }
+.services__card[data-service-id="4"] { --_accent: var(--clr-accent-light); }
+
+/* Left accent strip */
+.services__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--_accent);
+  z-index: 5;
+  opacity: 0.6;
+  transition: opacity 0.4s var(--ease-out), width 0.4s var(--ease-out);
+}
+
+/* Inner layout */
 .services__card-inner {
   display: flex;
   flex-direction: column-reverse;
 }
 
+/* ── Content Panel ── */
 .services__card-content {
-  padding: var(--space-6) var(--space-5);
+  padding: var(--space-6) var(--space-5) var(--space-6) var(--space-8);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
   background-color: var(--clr-bg-elevated);
+  position: relative;
+  z-index: 1;
 }
 
 .services__card-header {
   display: flex;
-  align-items: baseline;
-  gap: var(--space-3);
+  align-items: center;
+  gap: var(--space-4);
 }
 
+/* Large display index number */
 .services__card-index {
-  font-family: var(--ff-mono);
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-bold);
-  color: var(--clr-accent);
+  font-family: var(--ff-display);
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: var(--fw-black);
+  color: var(--_accent);
+  line-height: 1;
+  opacity: 0.25;
+  letter-spacing: -0.04em;
+  flex-shrink: 0;
+  transition: opacity 0.4s var(--ease-out);
 }
-
-/* Distinct accent index colors per card */
-.services__card[data-service-id="1"] .services__card-index { color: var(--clr-accent); }
-.services__card[data-service-id="2"] .services__card-index { color: var(--clr-secondary); }
-.services__card[data-service-id="3"] .services__card-index { color: var(--clr-lime); }
-.services__card[data-service-id="4"] .services__card-index { color: var(--clr-accent-light); }
 
 .services__card-title {
   font-family: var(--ff-display);
@@ -100,33 +126,39 @@
   font-size: var(--fs-base);
   font-weight: var(--fw-light);
   color: var(--clr-text-muted);
-  line-height: 1.65;
+  line-height: 1.7;
   letter-spacing: -0.015em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: color var(--duration-base) var(--ease-out);
+  transition: color 0.4s var(--ease-out);
 }
 
+/* ── Tag pills — tinted with card accent ── */
 .services__card-tags {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
-  margin-top: var(--space-4);
+  margin-top: var(--space-3);
   padding: 0;
   list-style: none;
 }
 
 .services__card-tag {
-  font-family: var(--ff-body);
-  font-size: var(--fs-xs);
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
   color: var(--clr-text-muted);
-  border: 1px solid var(--clr-border);
-  padding: var(--space-1) var(--space-3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 6px 12px;
   border-radius: var(--radius-full);
   background-color: rgba(255, 255, 255, 0.02);
-  transition: all var(--duration-fast) var(--ease-out);
+  transition: border-color 0.3s var(--ease-out),
+              color 0.3s var(--ease-out),
+              background-color 0.3s var(--ease-out);
 }
 
+/* ── Visual Panel ── */
 .services__card-visual {
   position: relative;
   width: 100%;
@@ -134,11 +166,26 @@
   overflow: hidden;
 }
 
+/* Dot-matrix pattern overlay */
+.services__card-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 12px 12px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+}
+
 .services__card-visual img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--duration-slow) var(--ease-out);
+  filter: brightness(0.85) saturate(0.8);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s var(--ease-out);
 }
 
 .services__card-visual-overlay {
@@ -148,60 +195,48 @@
   pointer-events: none;
 }
 
-/* Card hover glows & visual scaling */
+/* ══════════════════════════════════════════
+   HOVER — Bold accent reveal
+   ══════════════════════════════════════════ */
+
 .services__card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
+              0 0 50px color-mix(in srgb, var(--_accent) 12%, transparent);
+  border-color: color-mix(in srgb, var(--_accent) 30%, transparent);
+}
+
+.services__card:hover::before {
+  opacity: 1;
+  width: 5px;
+}
+
+.services__card:hover .services__card-index {
+  opacity: 0.5;
 }
 
 .services__card:hover .services__card-desc {
   color: var(--clr-text);
 }
 
-.services__card[data-service-id="1"]:hover {
-  border-color: rgba(124, 58, 237, 0.4);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(124, 58, 237, 0.1);
-}
-.services__card[data-service-id="1"]:hover .services__card-tag {
-  border-color: rgba(124, 58, 237, 0.3);
+.services__card:hover .services__card-tag {
+  border-color: color-mix(in srgb, var(--_accent) 25%, transparent);
   color: var(--clr-text);
-  background-color: rgba(124, 58, 237, 0.05);
+  background-color: color-mix(in srgb, var(--_accent) 5%, transparent);
 }
 
-.services__card[data-service-id="2"]:hover {
-  border-color: rgba(245, 158, 11, 0.4);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(245, 158, 11, 0.1);
-}
-.services__card[data-service-id="2"]:hover .services__card-tag {
-  border-color: rgba(245, 158, 11, 0.3);
-  color: var(--clr-text);
-  background-color: rgba(245, 158, 11, 0.05);
-}
-
-.services__card[data-service-id="3"]:hover {
-  border-color: rgba(200, 255, 0, 0.4);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(200, 255, 0, 0.1);
-}
-.services__card[data-service-id="3"]:hover .services__card-tag {
-  border-color: rgba(200, 255, 0, 0.3);
-  color: var(--clr-text);
-  background-color: rgba(200, 255, 0, 0.05);
-}
-
-.services__card[data-service-id="4"]:hover {
-  border-color: rgba(167, 139, 250, 0.4);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(167, 139, 250, 0.1);
-}
-.services__card[data-service-id="4"]:hover .services__card-tag {
-  border-color: rgba(167, 139, 250, 0.3);
-  color: var(--clr-text);
-  background-color: rgba(167, 139, 250, 0.05);
+.services__card:hover .services__card-visual::before {
+  opacity: 1;
 }
 
 .services__card:hover .services__card-visual img {
-  transform: scale(1.05);
+  transform: scale(1.06);
+  filter: brightness(1) saturate(1.1);
 }
 
-/* ── Desktop Styles (min-width: 992px) ── */
+/* ══════════════════════════════════════════
+   DESKTOP — Sticky overlapping cards
+   ══════════════════════════════════════════ */
 @media (min-width: 992px) {
   .services__header {
     position: relative;
@@ -214,13 +249,13 @@
 
   .services__cards {
     gap: 0;
-    padding-bottom: 8vh; /* Space at bottom for last card exit */
+    padding-bottom: 8vh;
   }
 
   .services__card {
     position: sticky;
-    top: 7.5rem; /* sticks below main nav */
-    height: 60vh; /* card height */
+    top: 7.5rem;
+    height: 60vh;
     margin-bottom: 8vh;
     transform-origin: center top;
   }
@@ -237,10 +272,10 @@
   }
 
   .services__card-content {
-    padding: var(--space-10) var(--space-12);
+    padding: var(--space-10) var(--space-12) var(--space-10) var(--space-16);
     height: 100%;
-    justify-content: space-between;
-    gap: 0;
+    justify-content: center;
+    gap: var(--space-4);
   }
 
   .services__card-title {
@@ -250,7 +285,6 @@
   .services__card-desc {
     font-size: var(--fs-base);
     max-width: 500px;
-    margin-block: var(--space-4) var(--space-8);
   }
 
   .services__card-visual {
@@ -261,4 +295,3 @@
     background: linear-gradient(to right, var(--clr-bg-elevated) 0%, transparent 45%);
   }
 }
-

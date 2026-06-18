@@ -225,6 +225,27 @@
              WORK / PROJECTS HORIZONTAL SCROLL SHOWCASE
         ════════════════════════════════════════════════════ -->
         <section id="work" class="work">
+          <!-- Dynamic background layer -->
+          <div class="work__bg" aria-hidden="true">
+            <!-- Gradient orbs that shift with scroll -->
+            <div class="work__orb work__orb--1" id="work-orb-1"></div>
+            <div class="work__orb work__orb--2" id="work-orb-2"></div>
+            <div class="work__orb work__orb--3" id="work-orb-3"></div>
+
+            <!-- Large ghost project counter -->
+            <div class="work__ghost-counter" id="work-ghost-counter">01</div>
+
+            <!-- Subtle grid lines -->
+            <div class="work__grid-lines">
+              <div class="work__grid-line work__grid-line--v" style="left: 20%"></div>
+              <div class="work__grid-line work__grid-line--v" style="left: 40%"></div>
+              <div class="work__grid-line work__grid-line--v" style="left: 60%"></div>
+              <div class="work__grid-line work__grid-line--v" style="left: 80%"></div>
+              <div class="work__grid-line work__grid-line--h" style="top: 33%"></div>
+              <div class="work__grid-line work__grid-line--h" style="top: 66%"></div>
+            </div>
+          </div>
+
           <!-- Geometric background grid -->
           <div class="work__pinned-wrapper">
             <!-- Horizontal scrolling track -->
@@ -249,9 +270,9 @@
                   <div class="work__img-container">
                     <img src="/src/assets/images/work/project-1.jpg" alt="Spectrum Project" loading="lazy" decoding="async" />
                     <div class="work__img-overlay"></div>
+                    <span class="work__card-num">01</span>
                   </div>
                   <div class="work__card-content">
-                    <span class="work__card-num">01</span>
                     <span class="work__card-category">Visual / WebGL</span>
                     <h3 class="work__card-title">Spectrum</h3>
                     <p class="work__card-desc">High-fidelity 3D light diffraction simulation splitting light into pure colors.</p>
@@ -270,9 +291,9 @@
                   <div class="work__img-container">
                     <img src="/src/assets/images/work/project-2.jpg" alt="Nexus Project" loading="lazy" decoding="async" />
                     <div class="work__img-overlay"></div>
+                    <span class="work__card-num">02</span>
                   </div>
                   <div class="work__card-content">
-                    <span class="work__card-num">02</span>
                     <span class="work__card-category">Luxury / E-Commerce</span>
                     <h3 class="work__card-title">Nexus</h3>
                     <p class="work__card-desc">Modern e-commerce platform blending minimalism with immersive luxury aesthetics.</p>
@@ -291,9 +312,9 @@
                   <div class="work__img-container">
                     <img src="/src/assets/images/work/project-3.jpg" alt="Lumina Project" loading="lazy" decoding="async" />
                     <div class="work__img-overlay"></div>
+                    <span class="work__card-num">03</span>
                   </div>
                   <div class="work__card-content">
-                    <span class="work__card-num">03</span>
                     <span class="work__card-category">Digital / Experience</span>
                     <h3 class="work__card-title">Lumina</h3>
                     <p class="work__card-desc">Dynamic particle flow field visualization reacting to motion and mouse telemetry.</p>
@@ -312,9 +333,9 @@
                   <div class="work__img-container">
                     <img src="/src/assets/images/work/project-4.jpg" alt="Vertex Project" loading="lazy" decoding="async" />
                     <div class="work__img-overlay"></div>
+                    <span class="work__card-num">04</span>
                   </div>
                   <div class="work__card-content">
-                    <span class="work__card-num">04</span>
                     <span class="work__card-category">Identity / Brand</span>
                     <h3 class="work__card-title">Vertex</h3>
                     <p class="work__card-desc">Premium identity design system celebrating engineering excellence and minimal geometry.</p>
@@ -333,9 +354,9 @@
                   <div class="work__img-container">
                     <img src="/src/assets/images/work/project-5.jpg" alt="Aurora Project" loading="lazy" decoding="async" />
                     <div class="work__img-overlay"></div>
+                    <span class="work__card-num">05</span>
                   </div>
                   <div class="work__card-content">
-                    <span class="work__card-num">05</span>
                     <span class="work__card-category">Travel / Experience</span>
                     <h3 class="work__card-title">Aurora</h3>
                     <p class="work__card-desc">Immersive Northern Lights forecast app offering Norwegian destination planners organic data visualizations.</p>

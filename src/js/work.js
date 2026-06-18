@@ -73,6 +73,107 @@ export function initWork(lenis) {
         );
       }
     });
+
+    // ── Background Animations ──────────────────────────────────────────────
+
+    const orb1 = document.getElementById('work-orb-1');
+    const orb2 = document.getElementById('work-orb-2');
+    const orb3 = document.getElementById('work-orb-3');
+    const ghostCounter = document.getElementById('work-ghost-counter');
+    const gridLines = section.querySelectorAll('.work__grid-line');
+
+    // Fade in grid lines & ghost counter when section enters
+    gsap.to(gridLines, {
+      opacity: 1,
+      duration: 1.2,
+      stagger: 0.08,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+      }
+    });
+
+    if (ghostCounter) {
+      gsap.to(ghostCounter, {
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 60%',
+          toggleActions: 'play none none reverse',
+        }
+      });
+    }
+
+    // Orbs fade in and drift with the horizontal scroll progress
+    if (orb1) {
+      gsap.to(orb1, {
+        opacity: 0.07,
+        x: '30vw',
+        y: '15vh',
+        duration: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: () => `+=${track.scrollWidth - window.innerWidth}`,
+          scrub: 1.5,
+        }
+      });
+    }
+
+    if (orb2) {
+      gsap.to(orb2, {
+        opacity: 0.06,
+        x: '-25vw',
+        y: '-10vh',
+        duration: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: () => `+=${track.scrollWidth - window.innerWidth}`,
+          scrub: 2,
+        }
+      });
+    }
+
+    if (orb3) {
+      gsap.to(orb3, {
+        opacity: 0.05,
+        x: '-15vw',
+        y: '20vh',
+        scale: 1.3,
+        duration: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: () => `+=${track.scrollWidth - window.innerWidth}`,
+          scrub: 2.5,
+        }
+      });
+    }
+
+    // Ghost counter updates to current project number as cards scroll past
+    if (ghostCounter && cards.length > 0) {
+      cards.forEach((card, i) => {
+        ScrollTrigger.create({
+          trigger: card,
+          containerAnimation: scrollTween,
+          start: 'left 60%',
+          onEnter: () => {
+            ghostCounter.textContent = String(i + 1).padStart(2, '0');
+          },
+          onEnterBack: () => {
+            ghostCounter.textContent = String(i + 1).padStart(2, '0');
+          },
+        });
+      });
+    }
   }
 
   // ── 2. Click Action: Open Detail View (FLIP Transition) ─────────────────────
