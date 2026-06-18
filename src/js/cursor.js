@@ -40,15 +40,12 @@ export function initCursor() {
   if (isTouch) return;
 
   // ── quickTo — one reusable function per property ─────────────────────────
-  const dotX  = gsap.quickTo(dot,  'x', { duration: 0,   ease: 'none' });
-  const dotY  = gsap.quickTo(dot,  'y', { duration: 0,   ease: 'none' });
   const ringX = gsap.quickTo(ring, 'x', { duration: 0.5, ease: 'power3.out' });
   const ringY = gsap.quickTo(ring, 'y', { duration: 0.5, ease: 'power3.out' });
 
   // ── mousemove — update quickTo targets ───────────────────────────────────
   window.addEventListener('mousemove', (e) => {
-    dotX(e.clientX);
-    dotY(e.clientY);
+    gsap.set(dot, { x: e.clientX, y: e.clientY });
     ringX(e.clientX);
     ringY(e.clientY);
   });
